@@ -2,10 +2,11 @@ import { Route } from "react-router-dom";
 import * as React from "react";
 
 import Home from "@pages/Home";
-import Movie from "@pages/Home/Movie";
 import Admin from "@pages/Admin";
 import Auth from "@pages/Admin/Auth";
 import Dashboard from "@pages/Admin/DashBoard";
+import ListMovie from "@pages/Home/List";
+import Detail from "@pages/Home/Detail";
 
 export type AppRoute = {
     path: string;
@@ -18,7 +19,8 @@ const routes: AppRoute[] = [
         path: "",
         element: Home,
         children: [
-            { path: "", element: Movie },
+            { path: "", element: ListMovie },
+            { path: "detail/:id", element: Detail }
         ],
     },
     {

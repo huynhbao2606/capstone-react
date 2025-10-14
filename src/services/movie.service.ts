@@ -7,5 +7,5 @@ export const movieService = {
     getBanner: () => api.get("/QuanLyPhim/LayDanhSachBanner"),
 
     getDetail: (maPhim: number) =>
-        api.get(`/QuanLyRap/LayThongTinLichChieuPhim?MaPhim=${maPhim}`),
+        api.get(`/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`),
 };
