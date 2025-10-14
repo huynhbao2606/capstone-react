@@ -7,9 +7,9 @@ import { authLogin } from "@/redux/slices/auth/slice.tsx";
 import * as React from "react";
 
 export default function Auth() {
-    const error = useSelector((state: RootState) => state.authReducer.error);
-    const data = useSelector((state: RootState) => state.authReducer.data);
-    const loading = useSelector((state: RootState) => state.authReducer.loading);
+    const error = useSelector((state: RootState) => state.auth.error);
+    const data = useSelector((state: RootState) => state.auth.data);
+    const loading = useSelector((state: RootState) => state.auth.loading);
 
     const dispatch = useDispatch<AppDispatch>();
     const [user, setUser] = useState<User>({ taiKhoan: "", matKhau: "" });

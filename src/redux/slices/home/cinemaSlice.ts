@@ -116,5 +116,4 @@ const cinemaSlice = createSlice({
     },
 });
 
-export const { clearCinemaState } = cinemaSlice.actions;
 export const cinemaReducer = cinemaSlice.reducer;

@@ -6,7 +6,7 @@ import {actionLogout, tryAutoLogin} from "@/redux/slices/auth/slice.tsx";
 import {useEffect} from "react";
 
 export default function Admin(){
-    const data = useSelector((state : RootState) => state.authReducer.data);
+    const data = useSelector((state : RootState) => state.auth.data);
     const dispatch = useDispatch<AppDispatch>();
     if(!data){
         return <Navigate to="/auth" />
