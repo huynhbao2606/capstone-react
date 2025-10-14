@@ -1,0 +1,8 @@
+@import "tailwindcss";
+@plugin "flowbite/plugin";
+
+@source "../index.html" "./src/**/*.{ts,tsx,js,jsx}";
+
+@theme {
+    --color-primary: pink;
+}
