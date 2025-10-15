@@ -1,8 +1,8 @@
 import api from "@api/api";
 
 export const cinemaService = {
-    getHeThongRap: (maNhom: string = "GP01") => {
-        return api.get(`/QuanLyRap/LayThongTinHeThongRap?maNhom=${maNhom}`);
+    getHeThongRap: () => {
+        return api.get(`/QuanLyRap/LayThongTinHeThongRap`);
     },
 
     getLichChieuPhim: (maPhim: number) => {

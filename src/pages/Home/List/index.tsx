@@ -17,9 +17,12 @@ export default function ListMovie() {
 
     return (
         <>
-            {data?.map((movie) => (
-                <Movie key={movie.maPhim} movie={movie} />
-            ))}
+            <div className="grid grid-cols-4 gap-6">
+                {data?.map((m) => (
+                    <Movie key={m.maPhim} movie={m} />
+                ))}
+            </div>
         </>
+
     );
 }

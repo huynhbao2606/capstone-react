@@ -6,7 +6,7 @@ import Admin from "@pages/Admin";
 import Auth from "@pages/Admin/Auth";
 import Dashboard from "@pages/Admin/DashBoard";
 import Detail from "@pages/Home/Detail";
-import MainLayout from "@pages/Home/Layouts";
+import MainLayout from "@components/Layouts";
 
 type RouteElement =
     | React.ComponentType<any>

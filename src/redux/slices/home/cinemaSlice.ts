@@ -1,6 +1,6 @@
 import {createBaseState} from "@/types/BaseState.ts";
 import type {Base} from "@/types/Base.ts";
-import type {CumRap, HeThongRap, LichChieuTheoPhim} from "@/types/Cinema.ts";
+import type {CumRap, HeThongRap, LichChieuHeThongRap, LichChieuTheoPhim} from "@/types/Cinema.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {cinemaService} from "@services/cinema.service.ts";
 import type {AxiosError} from "axios";
@@ -9,12 +9,14 @@ interface CinemaState {
     heThongRap: Base<HeThongRap[]>;
     cumRapTheoHeThong: Base<CumRap[]>;
     lichChieuTheoPhim: Base<LichChieuTheoPhim>;
+    lichChieuHeThongRap : Base<LichChieuHeThongRap>;
 }
 
 const initialState: CinemaState = {
     heThongRap: createBaseState<HeThongRap[]>(),
     cumRapTheoHeThong: createBaseState<CumRap[]>(),
     lichChieuTheoPhim: createBaseState<LichChieuTheoPhim>(),
+    lichChieuHeThongRap: createBaseState<LichChieuHeThongRap>()
 };
 
 export const fetchHeThongRap = createAsyncThunk<
@@ -57,6 +59,20 @@ export const fetchLichChieuTheoPhim = createAsyncThunk<
             }
 });
 
+export const fetchLichChieuTheoHeThongRap = createAsyncThunk<
+    LichChieuHeThongRap>(
+    "LichChieuHeThongRap",
+    async (__, { rejectWithValue }) => {
+        try {
+            const res = await cinemaService.getLichChieuHeThong();
+            return res.data.content;
+        } catch (err) {
+            return rejectWithValue;
+        }
+    });
+
+
+
 
 const cinemaSlice = createSlice({
     name: "cinema",
@@ -66,6 +82,7 @@ const cinemaSlice = createSlice({
             state.heThongRap = createBaseState<HeThongRap[]>();
             state.cumRapTheoHeThong = createBaseState<CumRap[]>();
             state.lichChieuTheoPhim = createBaseState<LichChieuTheoPhim>();
+            state.lichChieuHeThongRap = createBaseState<LichChieuHeThongRap>()
         },
     },
     extraReducers: (builder) => {
@@ -112,6 +129,22 @@ const cinemaSlice = createSlice({
             .addCase(fetchLichChieuTheoPhim.rejected, (state, action) => {
                 state.lichChieuTheoPhim.loading = false;
                 state.lichChieuTheoPhim.error = action.payload as AxiosError;
+            });
+
+
+        // --- getLichChieuHeThongRap ---
+        builder
+            .addCase(fetchLichChieuTheoHeThongRap.pending, (state) => {
+                state.lichChieuHeThongRap.loading = true;
+                state.lichChieuHeThongRap.error = null;
+            })
+            .addCase(fetchLichChieuTheoHeThongRap.fulfilled, (state, action) => {
+                state.lichChieuHeThongRap.loading = false;
+                state.lichChieuHeThongRap.data = action.payload;
+            })
+            .addCase(fetchLichChieuTheoHeThongRap.rejected, (state, action) => {
+                state.lichChieuHeThongRap.loading = false;
+                state.lichChieuHeThongRap.error = action.payload as AxiosError;
             });
     },
 });
