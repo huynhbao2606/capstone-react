@@ -1,226 +1,102 @@
-import ThemeToggle from "@components/Theme";
+import { NavLink, Link } from "react-router-dom";
+import { useRef, useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
+
+const navItem =
+    "px-5 py-3 text-base font-semibold text-white/90 hover:text-white transition";
+const activeClass = "text-orange-400";
 
 export default function Navbar() {
+    const { scrollY } = useScroll();
+    const last = useRef(0);
+    const [hidden, setHidden] = useState(false);
+
+    useMotionValueEvent(scrollY, "change", (y) => {
+        const curr = y ?? 0;
+        if (curr > last.current && curr > 80) setHidden(true);
+        else setHidden(false);
+        last.current = curr;
+    });
+
     return (
-        <nav className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
-            <div className="max-w-screen-xl mx-auto p-4 flex flex-wrap items-center justify-between">
-                <a href="#" className="flex items-center gap-3">
-                    <img
-                        src="https://flowbite.com/docs/images/logo.svg"
-                        className="h-8"
-                        alt="Flowbite Logo"
-                    />
-                    <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            Flowbite
-          </span>
-                </a>
+        <motion.header
+            initial={false}
+            animate={{ y: hidden ? -100 : 0 }}
+            transition={{ duration: 0.28, ease: "easeInOut" }}
+            className="fixed inset-x-0 top-0 z-40"
+        >
+            <div className="absolute inset-0 bg-slate-900/50 backdrop-blur-md pointer-events-none" />
+            <nav className="relative pointer-events-auto">
+                <div className="max-w-7xl mx-auto px-6">
+                    <div className="flex h-20 items-center justify-between">
+                        <Link to="/" className="flex items-center gap-2">
+                            <div className="w-11 h-11 rounded bg-white flex items-center justify-center">
+                                <span className="text-slate-900 font-extrabold text-lg">C</span>
+                            </div>
+                            <div className="leading-4">
+                                <div className="text-white font-extrabold tracking-widest text-sm">
+                                    CAPSTONE
+                                </div>
+                                <div className="text-white/80 text-[10px] tracking-widest">
+                                    CYBERSOFT
+                                </div>
+                            </div>
+                        </Link>
 
-                {/* Nút mở menu mobile */}
-                <button
-                    data-collapse-toggle="navbar-multi-level"
-                    type="button"
-                    className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                    aria-controls="navbar-multi-level"
-                    aria-expanded="false"
-                >
-                    <span className="sr-only">Open main menu</span>
-                    <svg
-                        className="w-5 h-5"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 17 14"
-                    >
-                        <path
-                            stroke="currentColor"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M1 1h15M1 7h15M1 13h15"
-                        />
-                    </svg>
-                </button>
-
-                <div
-                    className="hidden w-full md:block md:w-auto"
-                    id="navbar-multi-level"
-                >
-                    <ul className="flex flex-col md:flex-row md:items-center font-medium p-4 md:p-0 mt-4 md:mt-0 border border-gray-100 md:border-0 rounded-lg bg-gray-50 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 md:space-x-6">
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-white bg-blue-700 rounded-sm md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500 dark:bg-blue-600 md:dark:bg-transparent"
-                                aria-current="page"
-                            >
-                                Home
-                            </a>
-                        </li>
-
-                        {/* Dropdown cấp 1 */}
-                        <li className="relative">
-                            <button
-                                id="dropdownNavbarLink"
-                                data-dropdown-toggle="dropdownNavbar"
-                                className="flex items-center justify-between w-full py-2 px-3 text-gray-900 hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 md:w-auto dark:text-white md:dark:hover:text-blue-500 dark:focus:text-white dark:hover:bg-gray-700 md:dark:hover:bg-transparent"
-                            >
-                                Dropdown
-                                <svg
-                                    className="w-2.5 h-2.5 ms-2.5"
-                                    aria-hidden="true"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 10 6"
+                        {/* Menu */}
+                        <ul className="hidden md:flex items-center gap-2">
+                            <li>
+                                <NavLink
+                                    to="/"
+                                    end
+                                    className={({ isActive }) =>
+                                        `${navItem} ${isActive ? activeClass : ""}`
+                                    }
                                 >
-                                    <path
-                                        stroke="currentColor"
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth="2"
-                                        d="m1 1 4 4 4-4"
-                                    />
+                                    Trang Chủ
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink
+                                    to="/ticket"
+                                    className={({ isActive }) =>
+                                        `${navItem} ${isActive ? activeClass : ""}`
+                                    }
+                                >
+                                    Đặt Vé
+                                </NavLink>
+                            </li>
+
+                        </ul>
+
+                        <div className="flex items-center gap-3">
+                            <button
+                                className="p-2 text-white/90 hover:text-white"
+                                aria-label="Tìm kiếm"
+                            >
+                                <svg
+                                    width="22"
+                                    height="22"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    viewBox="0 0 24 24"
+                                >
+                                    <circle cx="11" cy="11" r="7" strokeWidth="2" />
+                                    <path d="M21 21l-3.5-3.5" strokeWidth="2" />
                                 </svg>
                             </button>
 
-                            <div
-                                id="dropdownNavbar"
-                                className="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
+                            <Link
+                                to="/profile"
+                                className="w-10 h-10 rounded-full bg-gray-400 flex items-center justify-center text-white font-bold hover:bg-orange-500 transition"
                             >
-                                <ul
-                                    className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="dropdownNavbarLink"
-                                >
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Dashboard
-                                        </a>
-                                    </li>
-
-                                    {/* Dropdown cấp 2 (submenu) */}
-                                    <li aria-labelledby="dropdownNavbarLink">
-                                        <button
-                                            id="doubleDropdownButton"
-                                            data-dropdown-toggle="doubleDropdown"
-                                            data-dropdown-placement="right-start"
-                                            type="button"
-                                            className="flex items-center justify-between w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Dropdown
-                                            <svg
-                                                className="w-2.5 h-2.5 ms-2.5"
-                                                aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 10 6"
-                                            >
-                                                <path
-                                                    stroke="currentColor"
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth="2"
-                                                    d="m1 1 4 4 4-4"
-                                                />
-                                            </svg>
-                                        </button>
-
-                                        <div
-                                            id="doubleDropdown"
-                                            className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
-                                        >
-                                            <ul
-                                                className="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                                aria-labelledby="doubleDropdownButton"
-                                            >
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                    >
-                                                        Overview
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                    >
-                                                        My downloads
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                    >
-                                                        Billing
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a
-                                                        href="#"
-                                                        className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                                    >
-                                                        Rewards
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </li>
-
-                                    <li>
-                                        <a
-                                            href="#"
-                                            className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        >
-                                            Earnings
-                                        </a>
-                                    </li>
-                                </ul>
-
-                                <div className="py-1">
-                                    <a
-                                        href="#"
-                                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                                    >
-                                        Sign out
-                                    </a>
-                                </div>
-                            </div>
-                        </li>
-
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                            >
-                                Services
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                            >
-                                Pricing
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="#"
-                                className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                            >
-                                Contact
-                            </a>
-                        </li>
-
-                        <li className="md:ms-2">
-                            <ThemeToggle />
-                        </li>
-                    </ul>
+                                B
+                            </Link>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
+        </motion.header>
     );
 }

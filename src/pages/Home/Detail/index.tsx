@@ -18,7 +18,7 @@ export default function Detail(){
         if (id) dispatch(fetchLichChieuTheoPhim(Number(id)));
     }, [id, dispatch]);
 
-    if (loading) return Loading;
+    if (loading) return <Loading />;
     if (error) return <div className="text-center text-red-600 p-8">Loi Roi</div>;
     if (!movie)
         return <div className="text-center p-8">Không tìm thấy dữ liệu phim.</div>;

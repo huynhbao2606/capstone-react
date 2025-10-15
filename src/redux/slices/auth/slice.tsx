@@ -20,7 +20,7 @@ const initialState: AuthState = {
     error: null,
 };
 
-const timeExpire = 10 * 1000;
+const timeExpire = 7 * 24 * 1000;
 
 
 

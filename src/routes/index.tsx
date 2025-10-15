@@ -5,8 +5,8 @@ import Home from "@pages/Home";
 import Admin from "@pages/Admin";
 import Auth from "@pages/Admin/Auth";
 import Dashboard from "@pages/Admin/DashBoard";
-import ListMovie from "@pages/Home/List";
 import Detail from "@pages/Home/Detail";
+import MainLayout from "@pages/Home/Layouts";
 
 type RouteElement =
     | React.ComponentType<any>
@@ -21,10 +21,10 @@ export type AppRoute = {
 const routes: AppRoute[] = [
     {
         path: "",
-        element: Home as RouteElement,
+        element: MainLayout as RouteElement,
         children: [
-            { path: "", element: ListMovie as RouteElement },
-            { path: "detail/:id", element: Detail as RouteElement }, // 👈 ép kiểu ở đây
+            { path: "", element: Home as RouteElement },
+            { path: "detail/:id", element: Detail as RouteElement },
         ],
     },
     {
