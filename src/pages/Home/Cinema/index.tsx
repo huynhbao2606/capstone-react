@@ -7,7 +7,7 @@ import {fetchHeThongRap, fetchLichChieuTheoHeThongRap} from "@redux/slices/home/
 
 dayjs.locale("vi");
 
-export default function CinemaSection() {
+export default function Cinema() {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
