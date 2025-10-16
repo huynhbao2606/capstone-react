@@ -1,4 +1,4 @@
-import type {MovieDetail} from "@types/IMovie.ts";
+import type {MovieDetail} from "@/types/IMovie.ts";
 
 export interface HeThongRap {
     maHeThongRap: string;

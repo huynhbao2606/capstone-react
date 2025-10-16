@@ -1,4 +1,4 @@
-import type {IMovie} from "@types/IMovie.ts";
+import type {IMovie} from "@/types/IMovie.ts";
 import type {AxiosError} from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createBaseState} from "@/types/BaseState.ts";

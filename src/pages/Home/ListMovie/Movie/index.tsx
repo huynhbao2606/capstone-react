@@ -1,4 +1,4 @@
-import type {IMovie} from "@types/IMovie.ts";
+import type {IMovie} from "@/types/IMovie.ts";
 import {Link} from "react-router";
 
 type Props = {

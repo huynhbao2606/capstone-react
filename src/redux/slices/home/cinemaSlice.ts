@@ -1,6 +1,6 @@
 import {createBaseState} from "@/types/BaseState.ts";
 import type {Base} from "@/types/Base.ts";
-import type {CumRap, HeThongRap, LichChieuHeThongRap, LichChieuTheoPhim} from "@types/ICinema.ts";
+import type {CumRap, HeThongRap, LichChieuHeThongRap, LichChieuTheoPhim} from "@/types/ICinema.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {cinemaService} from "@services/cinema.service.ts";
 import type {AxiosError} from "axios";

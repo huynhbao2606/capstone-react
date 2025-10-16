@@ -1,5 +1,5 @@
 import {createBaseState} from "@/types/BaseState.ts";
-import type {IBanner} from "@types/IBanner.ts";
+import type {IBanner} from "@/types/IBanner.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {movieService} from "@services/movie.service.ts";
 import type {AxiosError} from "axios";

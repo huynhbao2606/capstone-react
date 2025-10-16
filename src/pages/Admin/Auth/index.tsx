@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/redux/store.ts";
 import { useState } from "react";
-import type { IUser } from "@types/IUser.ts";
+import type { IUser } from "@/types/IUser.ts";
 import { Navigate } from "react-router-dom";
 import { authLogin } from "@/redux/slices/auth/slice.tsx";
 import * as React from "react";
