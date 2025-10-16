@@ -1,7 +1,7 @@
 import type { AxiosError } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "@api/api.ts";
-import type {IUser} from "@types/IUser.ts";
+import type {IUser} from "@/types/IUser.ts";
 
 
 const adminInfoString = localStorage.getItem("ADMIN_INFO");
