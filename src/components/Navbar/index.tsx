@@ -47,7 +47,9 @@ export default function Navbar() {
                                     to="/"
                                     end
                                     className={({ isActive }) =>
-                                        `px-5 py-3 text-base font-semibold  transition ${isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"}`
+                                        `px-5 py-3 text-base font-semibold transition ${
+                                            isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
+                                        }`
                                     }
                                 >
                                     Trang Chủ
@@ -55,17 +57,46 @@ export default function Navbar() {
                             </li>
 
                             <li>
-                                <NavLink
-                                    to="/book-ticket"
-                                    className={({ isActive }) =>
-                                        `px-5 py-3 text-base font-semibold  transition ${isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"}`
-                                    }
-                                >
-                                    Đặt Vé
+                                <NavLink to="/movies" className={({ isActive }) =>
+                                    `px-5 py-3 text-base font-semibold transition ${
+                                        isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
+                                    }`
+                                }>
+                                    Phim
                                 </NavLink>
                             </li>
 
+                            <li>
+                                <NavLink to="/cinemas" className={({ isActive }) =>
+                                    `px-5 py-3 text-base font-semibold transition ${
+                                        isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
+                                    }`
+                                }>
+                                    Rạp
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink to="/showtimes" className={({ isActive }) =>
+                                    `px-5 py-3 text-base font-semibold transition ${
+                                        isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
+                                    }`
+                                }>
+                                    Lịch Chiếu
+                                </NavLink>
+                            </li>
+
+                            <li>
+                                <NavLink to="/promotions" className={({ isActive }) =>
+                                    `px-5 py-3 text-base font-semibold transition ${
+                                        isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
+                                    }`
+                                }>
+                                    Ưu Đãi
+                                </NavLink>
+                            </li>
                         </ul>
+
 
                         <div className="flex items-center gap-3">
                             <button

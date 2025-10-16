@@ -1,13 +1,17 @@
-import {useParams, Link } from "react-router";
-import {useAppDispatch} from "@redux/hooks.ts";
-import {useSelector} from "react-redux";
-import type {RootState} from "@redux/store.ts";
-import {useEffect} from "react";
-import {fetchLichChieuTheoPhim} from "@redux/slices/home/cinemaSlice.ts";
+import { useEffect } from "react";
+import { useParams, Link } from "react-router-dom";
+import { useAppDispatch } from "@redux/hooks";
+import { useSelector } from "react-redux";
+import type { RootState } from "@redux/store";
+import dayjs from "dayjs";
+import "dayjs/locale/vi";
+import { fetchLichChieuTheoPhim } from "@redux/slices/home/cinemaSlice";
 import Loading from "@components/Loading";
 
-export default function Detail(){
-    const {id} = useParams();
+dayjs.locale("vi");
+
+export default function Detail() {
+    const { id } = useParams();
     const dispatch = useAppDispatch();
 
     const { data: movie, loading, error } = useSelector(
@@ -19,96 +23,149 @@ export default function Detail(){
     }, [id, dispatch]);
 
     if (loading) return <Loading />;
-    if (error) return <div className="text-center text-red-600 p-8">Loi Roi</div>;
-    if (!movie)
-        return <div className="text-center p-8">Không tìm thấy dữ liệu phim.</div>;
+    if (error) return <div className="text-center text-red-600 p-8">Đã có lỗi xảy ra.</div>;
+    if (!movie) return <div className="text-center p-8">Không tìm thấy dữ liệu phim.</div>;
 
-    const fmt = (iso: string) =>
-        new Date(iso).toLocaleString("vi-VN", { hour12: false });
+    const release = movie.ngayKhoiChieu
+        ? dayjs(movie.ngayKhoiChieu).format("DD/MM/YYYY")
+        : "—";
 
     return (
-        <>
-            <div className="container mx-auto px-4 py-10">
-                <div className="grid md:grid-cols-3 gap-6 mb-10">
-                    <div>
+        <section className="container mx-auto px-4 py-10 text-white">
+            {/* Header */}
+            <div className="grid gap-8 md:grid-cols-3">
+                {/* Poster */}
+                <div>
+                    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl">
                         <img
                             src={movie.hinhAnh}
                             alt={movie.tenPhim}
-                            className="rounded-xl shadow-lg w-full"
+                            className="h-full w-full object-cover"
+                            loading="lazy"
                         />
+                        {/* overlay nhẹ */}
+                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/30" />
                     </div>
-                    <div className="md:col-span-2 space-y-3">
-                        <h1 className="text-4xl font-bold">{movie.tenPhim}</h1>
-                        <p className="text-gray-600">{movie.moTa || "Không có mô tả."}</p>
-                        <p>
-                            <span className="font-semibold">Ngày khởi chiếu:</span>{" "}
-                            {new Date(movie.ngayKhoiChieu).toLocaleDateString("vi-VN")}
-                        </p>
-                        <p>
-                            <span className="font-semibold">Đánh giá:</span> ⭐ {movie.danhGia}
-                        </p>
+                </div>
+
+                {/* Info */}
+                <div className="md:col-span-2">
+                    <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{movie.tenPhim}</h1>
+
+                    <div className="mt-3 flex flex-wrap items-center gap-2">
+                        {movie.dangChieu && (
+                            <span className="rounded-full bg-emerald-500/20 px-2.5 py-1 text-xs text-emerald-300">
+                Đang chiếu
+              </span>
+                        )}
+                        {movie.sapChieu && (
+                            <span className="rounded-full bg-amber-500/20 px-2.5 py-1 text-xs text-amber-300">
+                Sắp chiếu
+              </span>
+                        )}
+                        {movie.hot && (
+                            <span className="rounded-full bg-rose-500/20 px-2.5 py-1 text-xs text-rose-300">
+                HOT
+              </span>
+                        )}
+                        <span className="ml-1 text-sm text-white/70">
+              Khởi chiếu: <span className="font-medium text-white">{release}</span>
+            </span>
+                        <span className="text-sm text-white/70">•</span>
+                        <span className="text-sm text-white/90">⭐ {movie.danhGia ?? 0}</span>
+                    </div>
+
+                    <p className="mt-4 leading-relaxed text-white/80">
+                        {movie.moTa?.trim() || "Chưa có mô tả cho phim này."}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
                         {movie.trailer && (
                             <a
                                 href={movie.trailer}
                                 target="_blank"
                                 rel="noreferrer"
-                                className="inline-block px-4 py-2 mt-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition"
+                                className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.03] px-4 py-2 text-sm hover:bg-white/10 transition"
                             >
+                                {/* icon play */}
+                                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
                                 Xem trailer
                             </a>
                         )}
+                        {/* quay lại trang chủ / danh sách */}
+                        <Link
+                            to="/"
+                            className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/[0.03] px-4 py-2 text-sm hover:bg-white/10 transition"
+                        >
+                            {/* icon back */}
+                            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
+                                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                            </svg>
+                            Về trang chủ
+                        </Link>
                     </div>
                 </div>
-                <div className="mt-8">
-                    <h2 className="text-2xl font-bold mb-4 border-b pb-2">Lịch chiếu</h2>
+            </div>
 
-                    {movie.heThongRapChieu?.length ? (
-                        movie.heThongRapChieu.map((heThong) => (
+            {/* Lịch chiếu */}
+            <div className="mt-12">
+                <h2 className="mb-4 text-2xl font-semibold tracking-tight">Lịch chiếu</h2>
+
+                {!movie.heThongRapChieu?.length ? (
+                    <p className="text-white/60">Chưa có lịch chiếu nào cho phim này.</p>
+                ) : (
+                    <div className="space-y-6">
+                        {movie.heThongRapChieu.map((heThong: any) => (
                             <div
                                 key={heThong.maHeThongRap}
-                                className="mb-8 border rounded-lg p-4 shadow-sm"
+                                className="rounded-2xl border border-white/10 bg-white/[0.03] p-4"
                             >
-                                <div className="flex items-center gap-3 mb-3">
-                                    <img
-                                        src={heThong.logo}
-                                        alt={heThong.tenHeThongRap}
-                                        className="w-10 h-10 object-contain"
-                                    />
-                                    <h3 className="text-lg font-semibold">
-                                        {heThong.tenHeThongRap}
-                                    </h3>
+                                {/* Hệ thống */}
+                                <div className="mb-3 flex items-center gap-3">
+                                    {heThong.logo && (
+                                        <img
+                                            src={heThong.logo}
+                                            alt={heThong.tenHeThongRap}
+                                            className="h-9 w-9 rounded bg-white/10 p-1 object-contain"
+                                        />
+                                    )}
+                                    <h3 className="text-lg font-semibold">{heThong.tenHeThongRap}</h3>
                                 </div>
 
-                                {heThong.cumRapChieu.map((cum) => (
-                                    <div key={cum.maCumRap} className="pl-4 mt-3">
-                                        <p className="font-medium text-blue-600">
-                                            {cum.tenCumRap}
-                                            <span className="text-gray-500 text-sm ml-2">
-                          ({cum.diaChi})
-                        </span>
-                                        </p>
+                                {/* Cụm rạp */}
+                                <div className="space-y-4">
+                                    {heThong.cumRapChieu?.map((cum: any) => (
+                                        <div key={cum.maCumRap} className="rounded-xl border border-white/10 p-4">
+                                            <div className="mb-2">
+                                                <p className="font-medium">{cum.tenCumRap}</p>
+                                                <p className="text-xs text-white/60">{cum.diaChi}</p>
+                                            </div>
 
-                                        <div className="flex flex-wrap gap-2 mt-2">
-                                            {cum.lichChieuPhim.map((lc) => (
-                                                <Link
-                                                    key={lc.maLichChieu}
-                                                    to={`/ticket-room/${lc.maLichChieu}`}
-                                                    className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-blue-500 hover:text-white transition"
-                                                    title={`Giá vé: ${lc.giaVe.toLocaleString()}₫`}
-                                                >
-                                                    {fmt(lc.ngayChieuGioChieu)}
-                                                </Link>
-                                            ))}
+                                            <div className="flex flex-wrap gap-2">
+                                                {cum.lichChieuPhim?.map((lc: any) => (
+                                                    <Link
+                                                        key={lc.maLichChieu}
+                                                        to={`/ticket-room/${lc.maLichChieu}`}
+                                                        className="rounded-xl border border-white/15 bg-white/[0.04] px-3 py-1.5 text-sm hover:bg-white/10 hover:shadow transition"
+                                                        title={`Giá: ${Number(lc.giaVe).toLocaleString("vi-VN")}đ • ${lc.thoiLuong}p`}
+                                                    >
+                                                        {dayjs(lc.ngayChieuGioChieu).format("ddd, DD/MM • HH:mm")}
+                                                    </Link>
+                                                ))}
+                                                {!cum.lichChieuPhim?.length && (
+                                                    <span className="text-sm text-white/60">Chưa có suất.</span>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
-                        ))
-                    ) : (
-                        <p className="text-gray-500">Chưa có lịch chiếu nào.</p>
-                    )}
-                </div>
+                        ))}
+                    </div>
+                )}
             </div>
-        </>
+        </section>
     );
 }

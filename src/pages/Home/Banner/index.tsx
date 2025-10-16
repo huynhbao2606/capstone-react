@@ -1,51 +1,36 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState, AppDispatch } from "@redux/store";
+// BannerHeroMinimal.tsx
 import { Link } from "react-router-dom";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
-// @ts-ignore
-import "swiper/css";
-// @ts-ignore
-import "swiper/css/pagination"
-// @ts-ignore
-import 'swiper/css/navigation';
 
-import {fetchBanners} from "@redux/slices/home/bannerSlice.ts";
-
-export default function BannerCarousel() {
-    const dispatch = useDispatch<AppDispatch>();
-    const { data, loading, error } = useSelector((s: RootState) => s.banner);
-
-    useEffect(() => { dispatch(fetchBanners()); }, [dispatch]);
-
-    if (loading) return <div className="p-6 text-center">Đang tải banner…</div>;
-    if (error) return <div className="p-6 text-red-600">"Loi Roi</div>;
-    if (!data?.length) return null;
-
+export default function Banner() {
     return (
-        <div className="container mx-auto px-0 md:px-4 py-4">
-            <Swiper
-                modules={[Autoplay, Pagination, Navigation]}
-                autoplay={{ delay: 3500, disableOnInteraction: false }}
-                pagination={{ clickable: true }}
-                navigation
-                loop
-                className="rounded-xl shadow-lg"
-            >
-                {data.map(b => (
-                    <SwiperSlide key={b.maBanner}>
-                        <Link to={`/detail/${b.maPhim}`} aria-label={`Xem phim ${b.maPhim}`}>
-                            <img
-                                src={b.hinhAnh}
-                                alt={`Banner ${b.maPhim}`}
-                                loading="lazy"
-                                className="w-full h-[220px] md:h-[420px] object-cover rounded-xl"
-                            />
-                        </Link>
-                    </SwiperSlide>
-                ))}
-            </Swiper>
-        </div>
+        <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-600/20 via-sky-500/10 to-emerald-500/10">
+            <div className="pointer-events-none absolute -inset-20 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.25),transparent_60%)]" />
+            <div className="relative mx-auto max-w-7xl px-6 py-14 text-white">
+                <h1 className="text-3xl md:text-5xl font-bold tracking-tight">
+                    Đặt vé siêu nhanh. Lịch chiếu cập nhật liên tục.
+                </h1>
+                <p className="mt-3 text-white/80 max-w-2xl">
+                    Chọn hệ thống rạp, xem suất chiếu theo ngày, giữ chỗ chỉ với 1 chạm.
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-3">
+                    <Link to="/book-ticket" className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-sm font-semibold">
+                        Đặt vé ngay
+                    </Link>
+                    <Link to="/lich-chieu" className="px-5 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-sm">
+                        Xem lịch chiếu
+                    </Link>
+                </div>
+
+                {/* stats nhỏ */}
+                <div className="mt-7 flex flex-wrap gap-6 text-sm text-white/70">
+                    <span>Hơn 100+ rạp toàn quốc</span>
+                    <span className="opacity-40">•</span>
+                    <span>Cập nhật theo giờ</span>
+                    <span className="opacity-40">•</span>
+                    <span>Thanh toán an toàn</span>
+                </div>
+            </div>
+        </section>
     );
 }

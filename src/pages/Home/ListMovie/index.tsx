@@ -18,9 +18,9 @@ export default function ListMovie() {
 
     return (
         <>
-            <div className="grid grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-5 sm:gap-5">
                 {movie?.map((m) => (
-                    <Movie key={m.maPhim} movie={m}  />
+                    <Movie key={m.maPhim} movie={m} />
                 ))}
             </div>
         </>
