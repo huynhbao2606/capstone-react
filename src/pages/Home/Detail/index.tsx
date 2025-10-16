@@ -92,7 +92,7 @@ export default function Detail(){
                                             {cum.lichChieuPhim.map((lc) => (
                                                 <Link
                                                     key={lc.maLichChieu}
-                                                    to={`/ticketroom/${lc.maLichChieu}`}
+                                                    to={`/ticket-room/${lc.maLichChieu}`}
                                                     className="px-3 py-1 border border-gray-300 rounded text-sm hover:bg-blue-500 hover:text-white transition"
                                                     title={`Giá vé: ${lc.giaVe.toLocaleString()}₫`}
                                                 >

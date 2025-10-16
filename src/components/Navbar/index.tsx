@@ -2,9 +2,6 @@ import { NavLink, Link } from "react-router-dom";
 import { useRef, useState } from "react";
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
-const navItem =
-    "px-5 py-3 text-base font-semibold text-white/90 hover:text-white transition";
-const activeClass = "text-orange-400";
 
 export default function Navbar() {
     const { scrollY } = useScroll();
@@ -50,7 +47,7 @@ export default function Navbar() {
                                     to="/"
                                     end
                                     className={({ isActive }) =>
-                                        `${navItem} ${isActive ? activeClass : ""}`
+                                        `px-5 py-3 text-base font-semibold  transition ${isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"}`
                                     }
                                 >
                                     Trang Chủ
@@ -59,9 +56,9 @@ export default function Navbar() {
 
                             <li>
                                 <NavLink
-                                    to="/ticket"
+                                    to="/book-ticket"
                                     className={({ isActive }) =>
-                                        `${navItem} ${isActive ? activeClass : ""}`
+                                        `px-5 py-3 text-base font-semibold  transition ${isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"}`
                                     }
                                 >
                                     Đặt Vé

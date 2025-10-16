@@ -1,6 +1,5 @@
-import ListMovie from "@pages/Home/List";
+import ListMovie from "@pages/Home/ListMovie";
 import BannerCarousel from "@/pages/Home/Banner";
-import Cinema from "@pages/Home/Cinema";
 import "@/styles/background.css"
 
 export default function Home() {
@@ -15,8 +14,6 @@ export default function Home() {
                     </div>
                     <ListMovie />
                 </section>
-
-                <Cinema/>
             </div>
         </>
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@redux/hooks.ts";
 import dayjs from "dayjs";
 import "dayjs/locale/vi";
 import {fetchHeThongRap, fetchLichChieuTheoHeThongRap} from "@redux/slices/home/cinemaSlice.ts";
@@ -139,7 +139,7 @@ export default function Cinema() {
                             {lich.map((lc: any) => (
                                 <button
                                     key={lc.maLichChieu}
-                                    onClick={() => navigate(`/ticketroom/${lc.maLichChieu}`)}
+                                    onClick={() => navigate(`/ticket-room/${lc.maLichChieu}`)}
                                     className="px-3 py-1.5 rounded-xl border hover:shadow transition text-sm"
                                     title={`Giá: ${Number(lc.giaVe).toLocaleString()}đ • ${lc.thoiLuong}p`}
                                 >

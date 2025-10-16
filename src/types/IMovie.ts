@@ -1,4 +1,4 @@
-export interface Movie  {
+export interface IMovie {
     maPhim: number
     tenPhim: string
     biDanh: string

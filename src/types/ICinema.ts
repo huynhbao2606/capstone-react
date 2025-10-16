@@ -1,4 +1,4 @@
-import type {MovieDetail} from "@/types/Movie.ts";
+import type {MovieDetail} from "@types/IMovie.ts";
 
 export interface HeThongRap {
     maHeThongRap: string;
@@ -8,7 +8,7 @@ export interface HeThongRap {
 }
 
 
-export interface Cinema {
+export interface ICinema {
     maRap: number | string;
     tenRap: string;
 }
@@ -18,7 +18,7 @@ export interface CumRap {
     tenCumRap: string;
     diaChi: string;
     hinhAnh?: string;
-    danhSachRap?: Cinema[];
+    danhSachRap?: ICinema[];
 }
 
 export interface LichChieuPhim {

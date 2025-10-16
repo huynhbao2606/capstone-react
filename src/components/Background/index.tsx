@@ -6,8 +6,8 @@ export default function BackgroundFire() {
             {embers.map((_, i) => {
                 const left = Math.random() * 100; // vị trí ngang
                 const delay = Math.random() * 8;  // delay ngẫu nhiên
-                const size = 2 + Math.random() * 3; // kích thước
-                const dur = 4 + Math.random() * 6;  // thời gian bay
+                const size = 3 + Math.random() * 3; // kích thước
+                const dur = 10 + Math.random() * 6;  // thời gian bay
 
                 return (
                     <div

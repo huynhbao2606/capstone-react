@@ -7,6 +7,8 @@ import Auth from "@pages/Admin/Auth";
 import Dashboard from "@pages/Admin/DashBoard";
 import Detail from "@pages/Home/Detail";
 import MainLayout from "@components/Layouts";
+import RoomTicket from "@pages/Home/RoomTicket";
+import BookTicket from "@pages/Home/BookTicket";
 
 type RouteElement =
     | React.ComponentType<any>
@@ -25,6 +27,8 @@ const routes: AppRoute[] = [
         children: [
             { path: "", element: Home as RouteElement },
             { path: "detail/:id", element: Detail as RouteElement },
+            { path: "book-ticket", element: BookTicket as RouteElement },
+            { path: "ticket-room/:id", element: RoomTicket as RouteElement },
         ],
     },
     {

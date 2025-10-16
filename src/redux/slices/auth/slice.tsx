@@ -1,7 +1,7 @@
 import type { AxiosError } from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "@api/api.ts";
-import type {User} from "@/types/User.ts";
+import type {IUser} from "@types/IUser.ts";
 
 
 const adminInfoString = localStorage.getItem("ADMIN_INFO");
@@ -26,7 +26,7 @@ const timeExpire = 7 * 24 * 1000;
 
 export const authLogin = createAsyncThunk(
     "authLogin",
-    async (user : User, {dispatch, rejectWithValue }) => {
+    async (user : IUser, {dispatch, rejectWithValue }) => {
         try {
             const response = await api.post("QuanLyNguoiDung/DangNhap", user);
             const authInfo = response.data.content;
@@ -55,6 +55,7 @@ export const authLogin = createAsyncThunk(
             localStorage.setItem("ADMIN_INFO", JSON.stringify(authInfo));
             localStorage.setItem("ADMIN_INFO_EXP", exp.toString());
 
+            console.log(authInfo)
 
             return authInfo;
         } catch (error: any) {

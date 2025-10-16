@@ -1,8 +1,8 @@
-import type {Movie} from "@/types/Movie.ts";
+import type {IMovie} from "@types/IMovie.ts";
 import {Link} from "react-router";
 
 type Props = {
-    movie : Movie
+    movie : IMovie
 }
 
 export default function Movie({ movie }: Props){
@@ -46,14 +46,6 @@ export default function Movie({ movie }: Props){
                          transition hover:border-white/60 hover:bg-white/10"
                     >
                         Xem chi tiết
-                    </Link>
-                    {/* Nếu có sẵn maLichChieu: đổi link dưới thành /ticketroom/:id */}
-                    <Link
-                        to={`/detail/${movie.maPhim}#dat-ve`}
-                        className="w-28 text-center px-4 py-2 rounded-full border border-white/30 text-white text-sm
-                         transition hover:border-white/60 hover:bg-white/10"
-                    >
-                        Đặt vé
                     </Link>
                 </div>
 

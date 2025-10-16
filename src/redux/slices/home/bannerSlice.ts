@@ -1,11 +1,11 @@
 import {createBaseState} from "@/types/BaseState.ts";
-import type {Banner} from "@/types/Banner.ts";
+import type {IBanner} from "@types/IBanner.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {movieService} from "@services/movie.service.ts";
 import type {AxiosError} from "axios";
 import {fetchMovies} from "@redux/slices/home/movieSlice.ts";
 
-const initialState = createBaseState<Banner[]>();
+const initialState = createBaseState<IBanner[]>();
 
 export const fetchBanners = createAsyncThunk(
     "fecthBanner",

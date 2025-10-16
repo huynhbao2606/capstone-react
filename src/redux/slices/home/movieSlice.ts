@@ -1,11 +1,11 @@
-import type {Movie} from "@/types/Movie.ts";
+import type {IMovie} from "@types/IMovie.ts";
 import type {AxiosError} from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createBaseState} from "@/types/BaseState.ts";
 import {movieService} from "@services/movie.service.ts";
 
 
-const initialState = createBaseState<Movie[]>();
+const initialState = createBaseState<IMovie[]>();
 
 export const fetchMovies = createAsyncThunk(
     "fetchMovies",
@@ -14,7 +14,7 @@ export const fetchMovies = createAsyncThunk(
             const response = await movieService.getMovies();
             return response.data.content;
         }catch (error) {
-            return rejectWithValue;
+            return rejectWithValue(error);
         }
     }
 );
