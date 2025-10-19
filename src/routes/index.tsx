@@ -1,14 +1,19 @@
 import { Route } from "react-router-dom";
 import * as React from "react";
 
-import Home from "@pages/Home";
-import Admin from "@pages/Admin";
-import Auth from "@pages/Admin/Auth";
-import Dashboard from "@pages/Admin/DashBoard";
-import Detail from "@pages/Home/Detail";
 import MainLayout from "@components/Layouts";
-import RoomTicket from "@pages/Home/RoomTicket";
+import Home from "@pages/Home";
+import Detail from "@pages/Home/Detail";
 import BookTicket from "@pages/Home/BookTicket";
+import RoomTicket from "@pages/Home/RoomTicket";
+import Login from "@pages/Home/Auth/Login";
+import Register from "@pages/Home/Auth/Register";
+import Admin from "@pages/Admin";
+import Dashboard from "@pages/Admin/DashBoard";
+import Auth from "@pages/Admin/Auth";
+import NotFound from "@components/NotFound";
+import Profile from "@pages/Home/Profile";
+
 
 type RouteElement =
     | React.ComponentType<any>
@@ -29,6 +34,9 @@ const routes: AppRoute[] = [
             { path: "detail/:id", element: Detail as RouteElement },
             { path: "book-ticket", element: BookTicket as RouteElement },
             { path: "ticket-room/:id", element: RoomTicket as RouteElement },
+            { path: "login", element: Login as RouteElement },
+            { path: "register", element: Register as RouteElement },
+            { path: "profile", element: Profile as RouteElement },
         ],
     },
     {
@@ -37,19 +45,25 @@ const routes: AppRoute[] = [
         children: [{ path: "dashboard", element: Dashboard as RouteElement }],
     },
     { path: "auth", element: Auth as RouteElement },
+
+    { path: "*", element: NotFound as RouteElement }
+
 ];
 
-export const renderRoutes = () =>
-    routes.map((route, idx) => {
-        const Element = route.element;
-        return route.children?.length ? (
-            <Route key={idx} path={route.path} element={<Element />}>
-                {route.children.map((child, cidx) => {
-                    const ChildElement = child.element;
-                    return <Route key={cidx} path={child.path} element={<ChildElement />} />;
-                })}
-            </Route>
-        ) : (
-            <Route key={idx} path={route.path} element={<Element />} />
-        );
-    });
+export const renderRoutes = () => (
+        routes.map((route, idx) => {
+            const Element = route.element;
+            return route.children?.length ? (
+                <Route key={idx} path={route.path} element={<Element />}>
+                    {route.children.map((child, cidx) => {
+                        const ChildElement = child.element;
+                        return (
+                            <Route key={cidx} path={child.path} element={<ChildElement />} />
+                        );
+                    })}
+                </Route>
+            ) : (
+                <Route key={idx} path={route.path} element={<Element />} />
+            );
+        })
+);

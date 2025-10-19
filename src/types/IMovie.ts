@@ -14,7 +14,7 @@ export interface IMovie {
 }
 
 
-export interface MovieDetail {
+export interface IMovieDetail {
     maPhim: number;
     tenPhim: string;
     biDanh: string;

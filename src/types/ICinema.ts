@@ -1,6 +1,6 @@
-import type {MovieDetail} from "@/types/IMovie.ts";
+import type {IMovieDetail} from "@/types/IMovie.ts";
 
-export interface HeThongRap {
+export interface IHeThongRap {
     maHeThongRap: string;
     tenHeThongRap: string;
     biDanh: string;
@@ -13,7 +13,7 @@ export interface ICinema {
     tenRap: string;
 }
 
-export interface CumRap {
+export interface ICumRap {
     maCumRap: string;
     tenCumRap: string;
     diaChi: string;
@@ -21,7 +21,7 @@ export interface CumRap {
     danhSachRap?: ICinema[];
 }
 
-export interface LichChieuPhim {
+export interface ILichChieuPhim {
     maLichChieu: number | string;
     maRap: string;
     tenRap: string;
@@ -31,29 +31,29 @@ export interface LichChieuPhim {
 }
 
 
-export interface CumRapChieu {
+export interface ICumRapChieu {
     maCumRap: string;
     tenCumRap: string;
     diaChi: string;
     hinhAnh?: string;
-    lichChieuPhim: LichChieuPhim[];
+    lichChieuPhim: ILichChieuPhim[];
 }
 
 
-export interface HeThongRapChieu {
+export interface IHeThongRapChieu {
     maHeThongRap: string;
     tenHeThongRap: string;
     logo: string;
-    cumRapChieu: CumRapChieu[];
+    cumRapChieu: ICumRapChieu[];
 }
 
 
-export interface LichChieuTheoPhim extends MovieDetail {
-    heThongRapChieu: HeThongRapChieu[];
+export interface ILichChieuTheoPhim extends IMovieDetail {
+    heThongRapChieu: IHeThongRapChieu[];
 }
 
 
-export interface LichChieuHeThongRap {
+export interface ILichChieuHeThongRap {
     maHeThongRap: string;
     tenHeThongRap: string;
     logo: string;

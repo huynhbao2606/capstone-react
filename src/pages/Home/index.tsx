@@ -1,13 +1,21 @@
 import ListMovie from "@pages/Home/ListMovie";
-import BannerCarousel from "@/pages/Home/Banner";
+import Carousel from "@pages/Home/Carousel";
 import "@/styles/background.css"
+import {useEffect} from "react";
+import {useDispatch} from "react-redux";
+import type {AppDispatch} from "@redux/store.ts";
+import {userAutoLogin} from "@redux/slices/auth/userAuthSlice.ts";
 
 export default function Home() {
+    const dispatch = useDispatch<AppDispatch>();
+    useEffect(()=>{
+        dispatch(userAutoLogin())
+    },[dispatch])
     return (
         <>
             <div className="min-h-screen">
                 <div className={"mx-auto max-w-7xl"}>
-                    <BannerCarousel/>
+                    <Carousel/>
                 </div>
 
 

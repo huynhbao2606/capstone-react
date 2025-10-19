@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import {Navigate, useParams} from "react-router-dom";
 import { useAppDispatch } from "@redux/hooks";
 import { useSelector } from "react-redux";
 import { fetchRoomTicket } from "@redux/slices/home/ticketSlice";
@@ -12,8 +12,15 @@ export default function RoomTicket() {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const { data: ticket, loading, error } = useSelector((s: RootState) => s.ticket);
+    const userAuth = useSelector((state : RootState) => state.userAuth.data)
 
-    // State duy nhất để chọn ghế
+
+    if(!userAuth){
+        return <Navigate to={"/login"}/>
+    }
+
+
+    // State chọn ghế
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
     useEffect(() => {
@@ -26,11 +33,8 @@ export default function RoomTicket() {
 
     return (
         <div className="container mx-auto p-6 text-white">
-            {/* Grid 2 cột: trái = sơ đồ, phải = info + tạm tính */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                {/* LEFT: Legend + Screen + Seats */}
                 <div className="lg:col-span-8">
-                    {/* Legend */}
                     <div className="flex justify-center gap-6 mb-6 text-sm">
                         <div className="flex items-center gap-2">
                             <span className="w-6 h-6 rounded-md bg-gray-500 inline-block" />
@@ -50,16 +54,14 @@ export default function RoomTicket() {
                         </div>
                     </div>
 
-                    {/* Screen */}
                     <div className="mx-auto mb-4 h-1 w-3/4 bg-white/30 rounded" />
                     <p className="text-center text-sm text-white/60 mb-6">MÀN HÌNH</p>
 
-                    {/* Seats grid */}
                     <div className="mx-auto max-w-full">
                         <div
-                            className="grid justify-center gap-8"  // 🔹 chỉ 1px giữa ghế
+                            className="grid justify-center gap-8"
                             style={{
-                                gridTemplateColumns: "repeat(10, minmax(1.8rem, 1.8rem))", // 🔹 kích thước ghế đồng đều, hẹp hơn
+                                gridTemplateColumns: "repeat(10, minmax(1.8rem, 1.8rem))",
                             }}
                         >
                             {ticket.danhSachGhe?.map((seat: ISeat) => (
@@ -80,10 +82,8 @@ export default function RoomTicket() {
                     </div>
                 </div>
 
-                {/* RIGHT: Sticky info + selected seats + subtotal */}
                 <aside className="lg:col-span-4">
                     <div className="lg:sticky lg:top-6 space-y-4">
-                        {/* Thông tin phim */}
                         <div className="bg-white/5 rounded-xl p-4">
                             <div className="flex items-center gap-4">
                                 {ticket.thongTinPhim.hinhAnh && (
@@ -94,7 +94,7 @@ export default function RoomTicket() {
                                     />
                                 )}
                                 <div>
-                                    <h1 className="text-xl font-bold">{ticket.thongTinPhim.tenPhim}</h1>
+                                    <h1 className="text-xl font-bold">{ticket.thongTinPhim.tenPhim} </h1>
                                     <p className="text-white/80">{ticket.thongTinPhim.tenCumRap} • {ticket.thongTinPhim.tenRap}</p>
                                     <p className="text-white/60">{ticket.thongTinPhim.diaChi}</p>
                                     <p className="text-white/60">
@@ -105,7 +105,6 @@ export default function RoomTicket() {
                             </div>
                         </div>
 
-                        {/* Ghế đã chọn */}
                         <div className="bg-white/5 rounded-xl p-4">
                             <h3 className="font-semibold mb-2">Ghế đã chọn</h3>
                             {ticket.danhSachGhe?.some((s) => selectedIds.includes(s.maGhe)) ? (
@@ -128,7 +127,6 @@ export default function RoomTicket() {
                             )}
                         </div>
 
-                        {/* Tạm tính */}
                         <div className="bg-white/5 rounded-xl p-4">
                             <h3 className="font-semibold mb-2">Tạm tính</h3>
                             <p className="text-white/80">
@@ -146,6 +144,17 @@ export default function RoomTicket() {
                                 ₫
                             </p>
                         </div>
+
+                        <div className="bg-white/5 rounded-xl p-4">
+                            <h3 className="font-semibold mb-2">Thông tin đặt</h3>
+                            <p className="text-white/80">
+                                Người đặt: <strong>{userAuth?.hoTen}</strong>
+                            </p>
+                            <p className="text-white/80">
+                                Email: <strong>{userAuth?.email}</strong>
+                            </p>
+                        </div>
+
                     </div>
                 </aside>
             </div>

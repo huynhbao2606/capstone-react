@@ -34,7 +34,8 @@
       "@api/*": ["src/api/*"],
       "@services/*" : ["src/services/*"],
       "@types/*": ["src/types/*"],
-      "@redux/*": ["src/redux/*"]
+      "@redux/*": ["src/redux/*"],
+      "@styles/*": ["src/styles/*"],
     }
   },
   "include": ["src"]

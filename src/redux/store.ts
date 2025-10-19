@@ -1,17 +1,19 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {authReducer} from "@/redux/slices/auth/slice.tsx";
+import {adminAuthReducer} from "@redux/slices/auth/adminAuthSlice.ts";
 import {movieReducer} from "@redux/slices/home/movieSlice.ts";
 import {cinemaReducer} from "@redux/slices/home/cinemaSlice.ts";
-import {bannerReducer} from "@redux/slices/home/bannerSlice.ts";
 import {ticketReducer} from "@redux/slices/home/ticketSlice.ts";
+import {userAuthReducer} from "@redux/slices/auth/userAuthSlice.ts";
+import {profileReducer} from "@redux/slices/home/profileSlice.ts";
 
 export const store = configureStore({
     reducer: {
         movies: movieReducer,
         cinema: cinemaReducer,
-        banner: bannerReducer,
         ticket: ticketReducer,
-        auth: authReducer
+        profile: profileReducer,
+        adminAuth: adminAuthReducer,
+        userAuth: userAuthReducer,
     },
 })
 

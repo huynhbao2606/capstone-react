@@ -18,6 +18,7 @@ export default defineConfig({
           "@services": path.resolve(__dirname, './src/services'),
           "@types": path.resolve(__dirname, './src/types'),
           "@redux": path.resolve(__dirname, './src/redux'),
+          "@styles": path.resolve(__dirname, './src/styles'),
       }
   }
 })

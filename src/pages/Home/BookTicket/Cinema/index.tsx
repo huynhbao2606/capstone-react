@@ -81,12 +81,10 @@ export default function Cinema() {
 
     return (
         <section className="container mx-auto px-4 py-8 text-white">
-            {/* Header */}
             <div className="rounded-2xl bg-gradient-to-br from-indigo-600/20 via-sky-500/10 to-emerald-500/10 border border-white/10 p-5 mb-6">
                 <h2 className="text-2xl md:text-3xl font-bold">Đặt Vé Xem Phim</h2>
             </div>
 
-            {/* Dải hệ thống rạp */}
             <div className="flex items-center gap-2 overflow-x-auto no-scrollbar mb-6">
                 {loadingHeThongRap && <SysSkeleton />}
                 {!loadingHeThongRap &&
@@ -120,9 +118,7 @@ export default function Cinema() {
                     ))}
             </div>
 
-            {/* Layout 2 cột: trái = phim; phải = lịch chiếu */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                {/* Cột trái: danh sách phim */}
                 <div className="lg:col-span-6">
                     <h3 className="text-lg font-semibold mb-3">Phim trong hệ thống</h3>
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -176,7 +172,6 @@ export default function Cinema() {
                     )}
                 </div>
 
-                {/* Cột phải: lịch chiếu theo cụm */}
                 <div className="lg:col-span-6">
                     <h3 className="text-lg font-semibold mb-3">Lịch chiếu</h3>
 
@@ -235,7 +230,6 @@ export default function Cinema() {
     );
 }
 
-/* ================== Skeletons (Tailwind-only) ================== */
 
 function SysSkeleton() {
     return (

@@ -5,12 +5,10 @@ export default function Footer() {
 
     return (
         <footer className="relative mt-16 border-t border-white/10 bg-[#0b1220] text-white">
-            {/* viền sáng mờ phía trên */}
             <div className="pointer-events-none absolute -top-px left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
 
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
                 <div className="grid grid-cols-1 gap-10 md:grid-cols-4">
-                    {/* Brand */}
                     <div className="md:col-span-1">
                         <Link to="/" className="flex items-center gap-2">
                             <div className="w-11 h-11 rounded bg-white flex items-center justify-center">
@@ -30,7 +28,6 @@ export default function Footer() {
                             Đặt vé nhanh chóng, lịch chiếu cập nhật theo hệ thống rạp trên toàn quốc.
                         </p>
 
-                        {/* Social */}
                         <div className="mt-4 flex items-center gap-3">
                             <a
                                 href="https://facebook.com"
@@ -63,7 +60,6 @@ export default function Footer() {
                                 aria-label="Twitter"
                                 className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-white/5 hover:bg-white/10 transition"
                             >
-                                {/* X / Twitter */}
                                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                                     <path d="M18.244 2H21l-6.54 7.47L22 22h-6.91l-4.54-5.87L4.5 22H2l7.14-8.16L2 2h6.91l4.2 5.43L18.244 2Zm-2.421 18h1.86L8.33 4H6.47l9.353 16Z" />
                                 </svg>
@@ -71,7 +67,6 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* Links */}
                     <div>
                         <h3 className="text-sm font-semibold uppercase tracking-wider text-white/80">
                             Khám phá
@@ -109,13 +104,11 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Divider */}
                 <div className="my-8 h-px w-full bg-white/10" />
 
-                {/* Bottom */}
                 <div className="flex flex-col-reverse items-center justify-between gap-4 sm:flex-row">
                     <p className="text-sm text-white/60">
-                        © {year} <span className="font-medium text-white">CinéBooking</span>. All rights reserved.
+                        © {year} <span className="font-medium text-white">HuynhBao</span>. All rights reserved.
                     </p>
 
                     <div className="flex items-center gap-4 text-sm text-white/70">

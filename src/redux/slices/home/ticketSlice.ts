@@ -33,6 +33,7 @@ const ticketSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(fetchRoomTicket.pending,(state) => {
             state.loading = true;
+
         });
 
         builder.addCase(fetchRoomTicket.fulfilled, (state, action) => {

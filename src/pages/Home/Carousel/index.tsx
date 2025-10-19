@@ -1,7 +1,6 @@
-// BannerHeroMinimal.tsx
 import { Link } from "react-router-dom";
 
-export default function Banner() {
+export default function Carousel() {
     return (
         <section className="relative overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-indigo-600/20 via-sky-500/10 to-emerald-500/10">
             <div className="pointer-events-none absolute -inset-20 bg-[radial-gradient(ellipse_at_top,rgba(16,185,129,0.25),transparent_60%)]" />
@@ -22,7 +21,6 @@ export default function Banner() {
                     </Link>
                 </div>
 
-                {/* stats nhỏ */}
                 <div className="mt-7 flex flex-wrap gap-6 text-sm text-white/70">
                     <span>Hơn 100+ rạp toàn quốc</span>
                     <span className="opacity-40">•</span>

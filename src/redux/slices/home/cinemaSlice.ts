@@ -1,26 +1,26 @@
 import {createBaseState} from "@/types/BaseState.ts";
 import type {Base} from "@/types/Base.ts";
-import type {CumRap, HeThongRap, LichChieuHeThongRap, LichChieuTheoPhim} from "@/types/ICinema.ts";
+import type {ICumRap, IHeThongRap, ILichChieuHeThongRap, ILichChieuTheoPhim} from "@/types/ICinema.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {cinemaService} from "@services/cinema.service.ts";
 import type {AxiosError} from "axios";
 
 interface CinemaState {
-    heThongRap: Base<HeThongRap[]>;
-    cumRapTheoHeThong: Base<CumRap[]>;
-    lichChieuTheoPhim: Base<LichChieuTheoPhim>;
-    lichChieuHeThongRap : Base<LichChieuHeThongRap>;
+    heThongRap: Base<IHeThongRap[]>;
+    cumRapTheoHeThong: Base<ICumRap[]>;
+    lichChieuTheoPhim: Base<ILichChieuTheoPhim>;
+    lichChieuHeThongRap : Base<ILichChieuHeThongRap>;
 }
 
 const initialState: CinemaState = {
-    heThongRap: createBaseState<HeThongRap[]>(),
-    cumRapTheoHeThong: createBaseState<CumRap[]>(),
-    lichChieuTheoPhim: createBaseState<LichChieuTheoPhim>(),
-    lichChieuHeThongRap: createBaseState<LichChieuHeThongRap>()
+    heThongRap: createBaseState<IHeThongRap[]>(),
+    cumRapTheoHeThong: createBaseState<ICumRap[]>(),
+    lichChieuTheoPhim: createBaseState<ILichChieuTheoPhim>(),
+    lichChieuHeThongRap: createBaseState<ILichChieuHeThongRap>()
 };
 
 export const fetchHeThongRap = createAsyncThunk<
-    HeThongRap[],
+    IHeThongRap[],
     void>(
         "HeThongRap",
     async (__, { rejectWithValue}) => {
@@ -34,7 +34,7 @@ export const fetchHeThongRap = createAsyncThunk<
 )
 
 export const fetchCumRapTheoHeThong = createAsyncThunk<
-    CumRap[],
+    ICumRap[],
     string>(
         "CumRapTheoHeThong",
     async (maHeThongRap, { rejectWithValue }) => {
@@ -47,7 +47,7 @@ export const fetchCumRapTheoHeThong = createAsyncThunk<
 });
 
 export const fetchLichChieuTheoPhim = createAsyncThunk<
-    LichChieuTheoPhim,
+    ILichChieuTheoPhim,
     number>(
         "LichChieuPhim",
     async (maPhim, { rejectWithValue }) => {
@@ -60,7 +60,7 @@ export const fetchLichChieuTheoPhim = createAsyncThunk<
 });
 
 export const fetchLichChieuTheoHeThongRap = createAsyncThunk<
-    LichChieuHeThongRap>(
+    ILichChieuHeThongRap>(
     "LichChieuHeThongRap",
     async (__, { rejectWithValue }) => {
         try {
@@ -79,10 +79,10 @@ const cinemaSlice = createSlice({
     initialState,
     reducers: {
         clearCinemaState: (state) => {
-            state.heThongRap = createBaseState<HeThongRap[]>();
-            state.cumRapTheoHeThong = createBaseState<CumRap[]>();
-            state.lichChieuTheoPhim = createBaseState<LichChieuTheoPhim>();
-            state.lichChieuHeThongRap = createBaseState<LichChieuHeThongRap>()
+            state.heThongRap = createBaseState<IHeThongRap[]>();
+            state.cumRapTheoHeThong = createBaseState<ICumRap[]>();
+            state.lichChieuTheoPhim = createBaseState<ILichChieuTheoPhim>();
+            state.lichChieuHeThongRap = createBaseState<ILichChieuHeThongRap>()
         },
     },
     extraReducers: (builder) => {

@@ -32,9 +32,7 @@ export default function Detail() {
 
     return (
         <section className="container mx-auto px-4 py-10 text-white">
-            {/* Header */}
             <div className="grid gap-8 md:grid-cols-3">
-                {/* Poster */}
                 <div>
                     <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 shadow-xl">
                         <img
@@ -48,7 +46,6 @@ export default function Detail() {
                     </div>
                 </div>
 
-                {/* Info */}
                 <div className="md:col-span-2">
                     <h1 className="text-3xl md:text-4xl font-bold tracking-tight">{movie.tenPhim}</h1>
 
@@ -109,7 +106,6 @@ export default function Detail() {
                 </div>
             </div>
 
-            {/* Lịch chiếu */}
             <div className="mt-12">
                 <h2 className="mb-4 text-2xl font-semibold tracking-tight">Lịch chiếu</h2>
 
@@ -134,7 +130,6 @@ export default function Detail() {
                                     <h3 className="text-lg font-semibold">{heThong.tenHeThongRap}</h3>
                                 </div>
 
-                                {/* Cụm rạp */}
                                 <div className="space-y-4">
                                     {heThong.cumRapChieu?.map((cum: any) => (
                                         <div key={cum.maCumRap} className="rounded-xl border border-white/10 p-4">

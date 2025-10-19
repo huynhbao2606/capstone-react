@@ -7,6 +7,5 @@ export interface IRoomTicket {
     hinhAnh: string
     ngayChieu: string
     gioChieu: string
-
 }
 

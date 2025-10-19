@@ -20,8 +20,7 @@ const initialState: AuthState = {
     error: null,
 };
 
-const timeExpire = 7 * 24 * 1000;
-
+const timeExpire = 7 * 24 * 60 * 60 * 1000;
 
 
 export const authLogin = createAsyncThunk(
@@ -64,7 +63,7 @@ export const authLogin = createAsyncThunk(
     }
 );
 
-const authSlice = createSlice({
+const adminAuthSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
@@ -90,12 +89,12 @@ const authSlice = createSlice({
     },
 });
 
-export const authReducer = authSlice.reducer;
+export const adminAuthReducer = adminAuthSlice.reducer;
 export const actionLogout = () => {
     return (dispatch: any) => {
         localStorage.removeItem("ADMIN_INFO");
         localStorage.removeItem("ADMIN_INFO_EXP");
-        dispatch(authSlice.actions.clearAuth());
+        dispatch(adminAuthSlice.actions.clearAuth());
     }
 }
 

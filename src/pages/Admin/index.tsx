@@ -2,11 +2,11 @@ import {Outlet} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import type {AppDispatch, RootState} from "@/redux/store.ts";
 import {Navigate} from "react-router-dom";
-import {actionLogout, tryAutoLogin} from "@/redux/slices/auth/slice.tsx";
+import {actionLogout, tryAutoLogin} from "@redux/slices/auth/adminAuthSlice.ts";
 import {useEffect} from "react";
 
 export default function Admin(){
-    const data = useSelector((state : RootState) => state.auth.data);
+    const data = useSelector((state : RootState) => state.adminAuth.data);
     const dispatch = useDispatch<AppDispatch>();
     if(!data){
         return <Navigate to="/auth" />
