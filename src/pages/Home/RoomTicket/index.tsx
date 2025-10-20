@@ -12,6 +12,7 @@ export default function RoomTicket() {
     const { id } = useParams();
     const dispatch = useAppDispatch();
     const { data: ticket, loading, error } = useSelector((s: RootState) => s.ticket);
+    // const {data : bookTicket} = useSelector((s : RootState) => s.bookTicket );
     const userAuth = useSelector((state : RootState) => state.userAuth.data)
 
 
@@ -19,6 +20,9 @@ export default function RoomTicket() {
         return <Navigate to={"/login"}/>
     }
 
+    // const datVe = () => {
+    //
+    // }
 
     // State chọn ghế
     const [selectedIds, setSelectedIds] = useState<number[]>([]);
@@ -153,7 +157,13 @@ export default function RoomTicket() {
                             <p className="text-white/80">
                                 Email: <strong>{userAuth?.email}</strong>
                             </p>
+                            <button type="button" onClick={() => {
+
+                            }}
+                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Yellow
+                            </button>
                         </div>
+
 
                     </div>
                 </aside>

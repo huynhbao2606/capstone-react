@@ -5,6 +5,7 @@ import {cinemaReducer} from "@redux/slices/home/cinemaSlice.ts";
 import {ticketReducer} from "@redux/slices/home/ticketSlice.ts";
 import {userAuthReducer} from "@redux/slices/auth/userAuthSlice.ts";
 import {profileReducer} from "@redux/slices/home/profileSlice.ts";
+import {bookTicketReducer} from "@redux/slices/home/booksTicketSlice.ts";
 
 export const store = configureStore({
     reducer: {
@@ -12,6 +13,7 @@ export const store = configureStore({
         cinema: cinemaReducer,
         ticket: ticketReducer,
         profile: profileReducer,
+        bookTicket: bookTicketReducer,
         adminAuth: adminAuthReducer,
         userAuth: userAuthReducer,
     },

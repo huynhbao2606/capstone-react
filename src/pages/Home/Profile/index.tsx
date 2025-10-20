@@ -1,22 +1,14 @@
-import { useEffect, useMemo } from "react";
+import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "@redux/hooks";
 import { fetchProfile } from "@redux/slices/home/profileSlice";
 import type { RootState } from "@redux/store";
-import type {IThongTinDatVe } from "@/types/IProfile";
 
 function getInitials(name?: string, fb = "U") {
     if (!name) return fb;
     const parts = name.trim().split(/\s+/);
     return ((parts[0]?.[0] || "") + (parts[parts.length - 1]?.[0] || "")).toUpperCase() || fb;
 }
-function fmtDateISO(d?: string) {
-    if (!d) return "";
-    const date = new Date(d);
-    return isNaN(date.getTime()) ? d : date.toLocaleString("vi-VN");
-}
-function fmtCurrency(n = 0) {
-    return n.toLocaleString("vi-VN") + "₫";
-}
+
 
 export default function Profile() {
     const dispatch = useAppDispatch();
@@ -25,11 +17,6 @@ export default function Profile() {
     useEffect(() => {
         dispatch(fetchProfile());
     }, [dispatch]);
-
-    const tickets = useMemo<IThongTinDatVe[]>(
-        () => data?.thongTinDatVe ?? [],
-        [data?.thongTinDatVe]
-    );
 
     if (loading) {
         return (
@@ -82,7 +69,6 @@ export default function Profile() {
         </span>
             </div>
 
-            {/* Info grid */}
             <div className="grid md:grid-cols-3 gap-4 mb-8">
                 <div className="bg-white/5 border border-white/10 rounded-xl p-4">
                     <div className="text-white/60 text-sm">Tài khoản</div>
@@ -97,81 +83,6 @@ export default function Profile() {
                     <div className="font-semibold">{data.soDT || "-"}</div>
                 </div>
             </div>
-
-            {/* Tickets */}
-            <div className="flex items-center gap-3 mb-3">
-                <h2 className="text-xl font-bold">Vé đã đặt</h2>
-                <span className="text-xs px-2 py-1 rounded-full bg-white/10 border border-white/15">
-          {tickets.length}
-        </span>
-            </div>
-
-            {tickets.length === 0 ? (
-                <div className="rounded-xl border border-white/10 bg-white/5 p-6 text-white/70">
-                    Bạn chưa có vé nào.
-                </div>
-            ) : (
-                <ul className="space-y-4">
-                    {tickets.map((v) => (
-                        <li
-                            key={v.maVe}
-                            className="rounded-xl border border-white/10 bg-white/5 overflow-hidden"
-                        >
-                            <div className="p-4 flex items-start gap-4">
-                                {v.hinhAnh ? (
-                                    <img
-                                        src={v.hinhAnh}
-                                        alt={v.tenPhim}
-                                        className="w-16 h-24 object-cover rounded"
-                                    />
-                                ) : (
-                                    <div className="w-16 h-24 rounded bg-white/10 grid place-items-center text-xs text-white/60">
-                                        No Img
-                                    </div>
-                                )}
-
-                                <div className="min-w-0 flex-1">
-                                    <div className="flex items-center gap-2">
-                                        <h3 className="font-bold text-lg truncate">{v.tenPhim}</h3>
-                                        <span className="ml-auto text-sm text-white/70">{fmtDateISO(v.ngayDat)}</span>
-                                    </div>
-
-                                    {/* Rạp / Ghế */}
-                                    <div className="mt-1 text-sm text-white/80 space-y-1">
-                                        {/* Lấy rạp từ ghế đầu tiên (API ghế có đủ thông tin rạp) */}
-                                        {v.danhSachGhe?.length > 0 && (
-                                            <div className="truncate">
-                                                {v.danhSachGhe[0].tenHeThongRap} • {v.danhSachGhe[0].tenCumRap} •{" "}
-                                                {v.danhSachGhe[0].tenRap}
-                                            </div>
-                                        )}
-                                        <div className="flex flex-wrap gap-2">
-                                            {v.danhSachGhe?.map((g) => (
-                                                <span
-                                                    key={`${v.maVe}-${g.maGhe}`}
-                                                    className="text-xs px-2 py-1 rounded-md bg-white/10 border border-white/15"
-                                                    title={`Ghế ${g.tenGhe}`}
-                                                >
-                          Ghế {g.tenGhe}
-                        </span>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </div>
-
-                                {/* Giá / thời lượng */}
-                                <div className="text-right shrink-0">
-                                    <div className="text-lg font-extrabold">{fmtCurrency(v.giaVe || 0)}</div>
-                                    {v.thoiLuongPhim ? (
-                                        <div className="text-xs text-white/70">{v.thoiLuongPhim} phút</div>
-                                    ) : null}
-                                    <div className="mt-2 text-xs text-white/60">Mã vé: {v.maVe}</div>
-                                </div>
-                            </div>
-                        </li>
-                    ))}
-                </ul>
-            )}
         </div>
     );
 }

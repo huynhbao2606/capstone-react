@@ -13,6 +13,7 @@ import Dashboard from "@pages/Admin/DashBoard";
 import Auth from "@pages/Admin/Auth";
 import NotFound from "@components/NotFound";
 import Profile from "@pages/Home/Profile";
+import TicketBook from "@pages/Home/TicketBook";
 
 
 type RouteElement =
@@ -37,6 +38,7 @@ const routes: AppRoute[] = [
             { path: "login", element: Login as RouteElement },
             { path: "register", element: Register as RouteElement },
             { path: "profile", element: Profile as RouteElement },
+            { path: "my-tickets", element: TicketBook as RouteElement}
         ],
     },
     {
