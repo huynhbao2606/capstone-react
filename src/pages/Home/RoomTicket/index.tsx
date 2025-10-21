@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import { useAppDispatch } from "@redux/hooks";
 import { useSelector } from "react-redux";
 import { fetchRoomTicket } from "@redux/slices/home/ticketSlice";
@@ -7,25 +7,78 @@ import type { RootState } from "@redux/store";
 import type { ISeat } from "@/types/ISeat";
 import Loading from "@components/Loading";
 import Seat from "@pages/Home/RoomTicket/Seat";
+import type {IBookTickets} from "@/types/IBookTickets.ts";
+import {bookTicket} from "@redux/slices/home/booksTicketSlice.ts";
+import Swal from "sweetalert2";
+
 
 export default function RoomTicket() {
     const { id } = useParams();
+    const navigate = useNavigate();
     const dispatch = useAppDispatch();
     const { data: ticket, loading, error } = useSelector((s: RootState) => s.ticket);
-    // const {data : bookTicket} = useSelector((s : RootState) => s.bookTicket );
     const userAuth = useSelector((state : RootState) => state.userAuth.data)
 
+    // State chọn ghế
+    const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
+    const selectedSeats =
+        ticket?.danhSachGhe?.filter((s: ISeat) => selectedIds.includes(s.maGhe)) ?? [];
+
+    const total = selectedSeats.reduce((sum, s) => sum + (s.giaVe ?? 0), 0);
 
     if(!userAuth){
         return <Navigate to={"/login"}/>
     }
 
-    // const datVe = () => {
-    //
-    // }
+    const datVe = async () => {
+        if (!ticket || selectedSeats.length === 0) {
+            await Swal.fire({
+                icon: "warning",
+                title: "Chưa chọn ghế",
+                text: "Vui lòng chọn ít nhất một ghế để tiếp tục.",
+                confirmButtonColor: "#facc15",
+            });
+            return;
+        }
 
-    // State chọn ghế
-    const [selectedIds, setSelectedIds] = useState<number[]>([]);
+        const payload: IBookTickets = {
+            maLichChieu: ticket.thongTinPhim.maLichChieu,
+            danhSachVe: selectedSeats.map((s) => ({
+                maGhe: s.maGhe,
+                giaVe: s.giaVe ?? 0,
+            })),
+        };
+
+        try {
+            await dispatch(bookTicket(payload)).unwrap();
+
+            Swal.fire({
+                icon: "success",
+                title: "Đặt vé thành công!",
+                html: `
+        <p style="margin-top:8px;">Bạn có thể kiểm tra vé trong trang <b>Vé của tôi</b>.</p>
+      `,
+                confirmButtonText: "Xem vé của tôi",
+                confirmButtonColor: "#22c55e",
+                showCancelButton: true,
+                cancelButtonText: "Ở lại trang này",
+                cancelButtonColor: "#6b7280",
+            }).then((res) => {
+                if (res.isConfirmed) navigate("/my-tickets");
+            });
+
+            setSelectedIds([]);
+        } catch (e: any) {
+            await Swal.fire({
+                icon: "error",
+                title: "Đặt vé thất bại!",
+                text: e?.message || "Vui lòng thử lại sau.",
+                confirmButtonColor: "#ef4444",
+            });
+        }
+    };
+
 
     useEffect(() => {
         if (id) dispatch(fetchRoomTicket(Number(id)));
@@ -157,11 +210,18 @@ export default function RoomTicket() {
                             <p className="text-white/80">
                                 Email: <strong>{userAuth?.email}</strong>
                             </p>
-                            <button type="button" onClick={() => {
-
-                            }}
-                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Yellow
+                            <button
+                                type="button"
+                                onClick={datVe}
+                                disabled={selectedSeats.length === 0}
+                                className={`w-full mt-3 text-white font-medium rounded-lg text-sm px-5 py-2.5
+                                    ${selectedSeats.length === 0
+                                    ? "bg-yellow-500/60 cursor-not-allowed"
+                                    : "bg-yellow-400 hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900"}`}
+                            >
+                                {selectedSeats.length === 0 ? "Chọn ghế để đặt" : `Đặt vé (${total.toLocaleString("vi-VN")}₫)`}
                             </button>
+
                         </div>
 
 

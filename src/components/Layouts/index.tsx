@@ -8,10 +8,10 @@ export default function MainLayout() {
     return (
         <>
 
-            <div className="relative min-h-screen text-white overflow-x-hidden">
+            <div className="relative min-h-screen text-white overflow-x-hidden h-100">
                 <BackgroundFire />
 
-                <div className="relative z-10 pt-25">
+                <div className="relative z-10 pt-25 ">
                     <Navbar />
                     <Outlet />
                     <Footer />

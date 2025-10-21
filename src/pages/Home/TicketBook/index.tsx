@@ -90,9 +90,8 @@ export default function TicketBook(){
                                         <span className="ml-auto text-sm text-white/70">{fmtDateISO(v.ngayDat)}</span>
                                     </div>
 
-                                    {/* Rạp / Ghế */}
                                     <div className="mt-1 text-sm text-white/80 space-y-1">
-                                        {/* Lấy rạp từ ghế đầu tiên (API ghế có đủ thông tin rạp) */}
+
                                         {v.danhSachGhe?.length > 0 && (
                                             <div className="truncate">
                                                 {v.danhSachGhe[0].tenHeThongRap} • {v.danhSachGhe[0].tenCumRap} •{" "}

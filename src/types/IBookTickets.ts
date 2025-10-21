@@ -3,5 +3,5 @@ export interface IBookTickets {
     danhSachVe : {
         maGhe : number;
         giaVe: number;
-    }
+    }[]
 }

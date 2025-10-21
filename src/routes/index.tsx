@@ -4,7 +4,6 @@ import * as React from "react";
 import MainLayout from "@components/Layouts";
 import Home from "@pages/Home";
 import Detail from "@pages/Home/Detail";
-import BookTicket from "@pages/Home/BookTicket";
 import RoomTicket from "@pages/Home/RoomTicket";
 import Login from "@pages/Home/Auth/Login";
 import Register from "@pages/Home/Auth/Register";
@@ -14,6 +13,7 @@ import Auth from "@pages/Admin/Auth";
 import NotFound from "@components/NotFound";
 import Profile from "@pages/Home/Profile";
 import TicketBook from "@pages/Home/TicketBook";
+import Showtimes from "@pages/Home/Showtimes";
 
 
 type RouteElement =
@@ -33,7 +33,7 @@ const routes: AppRoute[] = [
         children: [
             { path: "", element: Home as RouteElement },
             { path: "detail/:id", element: Detail as RouteElement },
-            { path: "book-ticket", element: BookTicket as RouteElement },
+            { path: "showtimes", element: Showtimes as RouteElement },
             { path: "ticket-room/:id", element: RoomTicket as RouteElement },
             { path: "login", element: Login as RouteElement },
             { path: "register", element: Register as RouteElement },
