@@ -1,13 +1,13 @@
 export interface IProfile {
-    taiKhoan: string
+    taiKhoan?: string
     matKhau: string
     hoTen: string
     email: string
     soDT: string
-    maNhom: string
-    maLoaiNguoiDung: string
-    loaiNguoiDung: ILoaiNguoiDung
-    thongTinDatVe: IThongTinDatVe[]
+    maNhom?: string
+    maLoaiNguoiDung?: string
+    loaiNguoiDung?: ILoaiNguoiDung
+    thongTinDatVe?: IThongTinDatVe[]
 }
 
 export interface ILoaiNguoiDung {

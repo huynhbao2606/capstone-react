@@ -1,7 +1,7 @@
 import {createBaseState} from "@/types/BaseState.ts";
 import type {IRoomTicket} from "@/types/IRoomTicket.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {ticketService} from "@services/ticket.service.ts";
+import {ticketService} from "@services/ticketService.ts";
 import type {AxiosError} from "axios";
 import type {ISeat} from "@/types/ISeat.ts";
 

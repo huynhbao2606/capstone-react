@@ -2,7 +2,7 @@ import {createBaseState} from "@/types/BaseState.ts";
 import type {Base} from "@/types/Base.ts";
 import type {ICumRap, IHeThongRap, ILichChieuHeThongRap, ILichChieuTheoPhim} from "@/types/ICinema.ts";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {cinemaService} from "@services/cinema.service.ts";
+import {cinemaService} from "@services/cinemaService.ts";
 import type {AxiosError} from "axios";
 
 interface CinemaState {

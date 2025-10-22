@@ -2,7 +2,7 @@ import type {IMovie} from "@/types/IMovie.ts";
 import type {AxiosError} from "axios";
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {createBaseState} from "@/types/BaseState.ts";
-import {movieService} from "@services/movie.service.ts";
+import {movieService} from "@services/movieService.ts";
 
 
 const initialState = createBaseState<IMovie[]>();

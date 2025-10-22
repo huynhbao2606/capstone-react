@@ -7,13 +7,16 @@ import Detail from "@pages/Home/Detail";
 import RoomTicket from "@pages/Home/RoomTicket";
 import Login from "@pages/Home/Auth/Login";
 import Register from "@pages/Home/Auth/Register";
-import Admin from "@pages/Admin";
-import Dashboard from "@pages/Admin/DashBoard";
 import Auth from "@pages/Admin/Auth";
 import NotFound from "@components/NotFound";
 import Profile from "@pages/Home/Profile";
 import TicketBook from "@pages/Home/TicketBook";
 import Showtimes from "@pages/Home/Showtimes";
+import AdminLayout from "@pages/Admin/_components/AdminLayout";
+import Admin from "@pages/Admin";
+import Showtime from "@pages/Admin/Showtime";
+import Film from "@pages/Admin/Film";
+import User from "@pages/Admin/User";
 
 
 type RouteElement =
@@ -43,8 +46,17 @@ const routes: AppRoute[] = [
     },
     {
         path: "admin",
-        element: Admin as RouteElement,
-        children: [{ path: "dashboard", element: Dashboard as RouteElement }],
+        element: AdminLayout as RouteElement,
+        children: [
+            { path: "", element: Admin as RouteElement },
+            { path: "user", element: User as RouteElement },
+            { path: "film", element: Film as RouteElement,
+                children: [
+                    { path: "showtime", element: Showtime as RouteElement },
+                ]
+            },
+            { path: "showtime", element: Showtime as RouteElement },
+        ],
     },
     { path: "auth", element: Auth as RouteElement },
 

@@ -1,6 +1,6 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import type {IUser} from "@/types/IUser.ts";
-import {authService} from "@services/auth/auth.service.ts";
+import {authService} from "@services/auth/authService.ts";
 import {createBaseState} from "@/types/BaseState.ts";
 import type {AxiosError} from "axios";
 import type {IRegister} from "@/types/IRegister.ts";
