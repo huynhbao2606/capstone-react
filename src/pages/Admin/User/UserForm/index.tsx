@@ -82,85 +82,99 @@ export default function UserForm({ initial, onClose }: Props) {
     };
 
     return (
-        <div className="space-y-3">
-            <h2 className="text-lg font-semibold text-gray-100 flex items-center gap-2 mb-3">
-                <FontAwesomeIcon icon={isEdit ? faPenToSquare : faUserPlus} />
-                {isEdit ? "Cập nhật người dùng" : "Thêm người dùng mới"}
-            </h2>
-
-
-            {["taiKhoan", "matKhau", "hoTen", "email", "soDt"].map((field) => (
-                <div key={field}>
-                    <label className="block text-sm text-gray-300 capitalize mb-1">
-                        {field === "taiKhoan"
-                            ? "Tài khoản"
-                            : field === "matKhau"
-                                ? "Mật khẩu"
-                                : field === "hoTen"
-                                    ? "Họ tên"
-                                    : field === "soDt"
-                                        ? "Số điện thoại"
-                                        : "Email"}
-                    </label>
-
-                    <input
-                        type={field === "matKhau" ? "password" : "text"}
-                        name={field}
-                        value={(form as any)[field] || ""}
-                        onChange={handleChange}
-                        disabled={isEdit && field === "taiKhoan"}
-                        className={`w-full px-3 py-2 border text-sm rounded-lg bg-white/10 text-white placeholder-gray-400
-              focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition-all
-              ${errors[field] ? "border-red-400" : "border-gray-500"}`}
-                    />
-                    {errors[field] && (
-                        <p className="text-red-400 text-xs mt-1">{errors[field]}</p>
-                    )}
-                </div>
-            ))}
-            <div>
-                <label className="block text-sm text-gray-300 mb-1">Loại người dùng</label>
-                <select
-                    name="maLoaiNguoiDung"
-                    value={form.maLoaiNguoiDung}
-                    onChange={handleChange}
-                    disabled={loading}
-                    className="w-full px-3 py-2 border border-gray-500 bg-white/10 text-white rounded-lg text-sm
-            focus:ring-2 focus:ring-orange-400 focus:border-orange-400 cursor-pointer transition-all"
-                >
-                    {data?.length ? (
-                        <>
-                            <option value="">-- Chọn loại người dùng --</option>
-                            {data.map((item) => (
-                                <option
-                                    key={item.maLoaiNguoiDung}
-                                    value={item.maLoaiNguoiDung}
-                                    className="text-gray-900"
-                                >
-                                    {item.tenLoai}
-                                </option>
-                            ))}
-                        </>
-                    ) : (
-                        <option value="">Không có dữ liệu</option>
-                    )}
-                </select>
+        <div className="space-y-6 text-white bg-gradient-to-b from-slate-800 to-slate-900 p-6 rounded-xl shadow-lg border border-white/10">
+            <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+                <FontAwesomeIcon
+                    icon={isEdit ? faPenToSquare : faUserPlus}
+                    className="text-orange-400 text-lg"
+                />
+                <h2 className="text-xl font-semibold">
+                    {isEdit ? "Cập nhật người dùng" : "Thêm người dùng mới"}
+                </h2>
             </div>
 
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-600 mt-4">
+            <div className="grid sm:grid-cols-2 gap-5">
+                {[
+                    { name: "taiKhoan", label: "Tài khoản", type: "text" },
+                    { name: "matKhau", label: "Mật khẩu", type: "password" },
+                    { name: "hoTen", label: "Họ và tên", type: "text" },
+                    { name: "email", label: "Email", type: "email" },
+                    { name: "soDt", label: "Số điện thoại", type: "text" },
+                ].map((field) => (
+                    <div key={field.name} className="col-span-1">
+                        <label className="block text-sm text-gray-300 mb-1 font-medium">
+                            {field.label}
+                        </label>
+                        <input
+                            type={field.type}
+                            name={field.name}
+                            value={(form as any)[field.name] || ""}
+                            onChange={handleChange}
+                            disabled={isEdit && field.name === "taiKhoan"}
+                            className={`w-full px-3 py-2.5 rounded-lg text-sm bg-white/10 text-white placeholder-gray-400
+            focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none transition
+            ${errors[field.name] ? "border-red-400" : "border-gray-500"} border`}
+                        />
+                        {errors[field.name] && (
+                            <p className="text-red-400 text-xs mt-1">{errors[field.name]}</p>
+                        )}
+                    </div>
+                ))}
+            </div>
+
+            <div>
+                <label className="block text-sm text-gray-300 mb-1 font-medium">
+                    Loại người dùng
+                </label>
+                <div className="relative">
+                    <select
+                        name="maLoaiNguoiDung"
+                        value={form.maLoaiNguoiDung}
+                        onChange={handleChange}
+                        disabled={loading}
+                        className="w-full px-3 py-2.5 rounded-lg text-sm bg-white/10 text-white border border-gray-500
+          focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none cursor-pointer"
+                    >
+                        {data?.length ? (
+                            <>
+                                <option value="" className="bg-slate-800 text-gray-400">
+                                    -- Chọn loại người dùng --
+                                </option>
+                                {data.map((item) => (
+                                    <option
+                                        key={item.maLoaiNguoiDung}
+                                        value={item.maLoaiNguoiDung}
+                                        className="bg-slate-900 text-gray-100"
+                                    >
+                                        👤 {item.tenLoai}
+                                    </option>
+                                ))}
+                            </>
+                        ) : (
+                            <option value="">Không có dữ liệu</option>
+                        )}
+                    </select>
+                    <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400">
+                        ▼
+                    </div>
+                </div>
+            </div>
+
+            <div className="flex justify-end gap-3 pt-4 border-t border-gray-700 mt-4">
                 <button
                     onClick={onClose}
-                    className="px-4 py-2 rounded-lg border border-gray-400 text-gray-300 hover:bg-gray-700 transition"
+                    className="px-4 py-2.5 rounded-lg border border-gray-500 text-gray-300 hover:bg-gray-700 hover:border-gray-400 transition"
                 >
                     Hủy
                 </button>
                 <button
                     onClick={handleSubmit}
-                    className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition"
+                    className="px-5 py-2.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-sm transition"
                 >
                     {isEdit ? "Cập nhật" : "Thêm mới"}
                 </button>
             </div>
         </div>
+
     );
 }

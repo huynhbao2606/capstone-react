@@ -72,30 +72,6 @@ export default function Navbar() {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/movies"
-                                    className={({ isActive }) =>
-                                        `px-5 py-3 text-base font-semibold transition ${
-                                            isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
-                                        }`
-                                    }
-                                >
-                                    Phim
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/cinemas"
-                                    className={({ isActive }) =>
-                                        `px-5 py-3 text-base font-semibold transition ${
-                                            isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
-                                        }`
-                                    }
-                                >
-                                    Rạp
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
                                     to="/showtimes"
                                     className={({ isActive }) =>
                                         `px-5 py-3 text-base font-semibold transition ${
@@ -104,18 +80,6 @@ export default function Navbar() {
                                     }
                                 >
                                     Lịch Chiếu
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/promotions"
-                                    className={({ isActive }) =>
-                                        `px-5 py-3 text-base font-semibold transition ${
-                                            isActive ? "text-yellow-500 hover:text-yellow-600" : "text-white/90 hover:text-white"
-                                        }`
-                                    }
-                                >
-                                    Ưu Đãi
                                 </NavLink>
                             </li>
                         </ul>

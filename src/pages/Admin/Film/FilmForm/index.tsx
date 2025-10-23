@@ -126,40 +126,50 @@ export default function FilmForm({ initial, onClose }: Props) {
     };
 
     return (
-        <div className="space-y-4 text-white">
-            <h2 className="text-lg font-semibold flex items-center gap-2 mb-4">
-                <FontAwesomeIcon icon={isEdit ? faPenToSquare : faPlus} />
-                {isEdit ? "Cập nhật phim" : "Thêm phim mới"}
-            </h2>
+        <div className="space-y-6 text-white bg-gradient-to-b from-slate-800 to-slate-900 p-6 rounded-xl shadow-xl border border-white/10">
+            <div className="flex items-center gap-2 border-b border-white/10 pb-3">
+                <FontAwesomeIcon
+                    icon={isEdit ? faPenToSquare : faPlus}
+                    className="text-orange-400 text-lg"
+                />
+                <h2 className="text-xl font-semibold">
+                    {isEdit ? "Cập nhật phim" : "Thêm phim mới"}
+                </h2>
+            </div>
 
-            {[
-                { label: "Tên phim", name: "tenPhim" },
-                { label: "Trailer", name: "trailer" },
-            ].map(({ label, name }) => (
-                <div key={name}>
-                    <label className="block text-sm text-gray-300 mb-1">{label}</label>
-                    <input
-                        name={name}
-                        value={(form as any)[name]}
-                        onChange={handleChange}
-                        className={`w-full px-3 py-2 rounded-lg bg-white/10 text-sm border ${
-                            errors[name] ? "border-red-400" : "border-gray-500"
-                        } focus:ring-2 focus:ring-orange-400 outline-none`}
-                    />
-                    {errors[name] && <p className="text-red-400 text-xs mt-1">{errors[name]}</p>}
-                </div>
-            ))}
+            <div className="grid sm:grid-cols-2 gap-5">
+                {[
+                    { label: "Tên phim", name: "tenPhim", placeholder: "Nhập tên phim..." },
+                    { label: "Trailer", name: "trailer", placeholder: "https://youtube.com/..." },
+                ].map(({ label, name, placeholder }) => (
+                    <div key={name}>
+                        <label className="block text-sm text-gray-300 font-medium mb-1">
+                            {label}
+                        </label>
+                        <input
+                            name={name}
+                            placeholder={placeholder}
+                            value={(form as any)[name]}
+                            onChange={handleChange}
+                            className={`w-full px-3 py-2.5 rounded-lg bg-white/10 text-sm border transition 
+            ${errors[name] ? "border-red-400" : "border-gray-500"}
+            focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none`}
+                        />
+                        {errors[name] && <p className="text-red-400 text-xs mt-1">{errors[name]}</p>}
+                    </div>
+                ))}
+            </div>
 
             <div>
-                <label className="block text-sm text-gray-300 mb-1">Hình ảnh</label>
+                <label className="block text-sm text-gray-300 font-medium mb-1">Hình ảnh</label>
                 <input
                     type="file"
                     accept=".jpg,.jpeg,.png,.gif"
                     onChange={handleFileChange}
                     className="block w-full text-sm text-gray-300
-            file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0
-            file:text-sm file:font-semibold file:bg-orange-500 file:text-white
-            hover:file:bg-orange-600 cursor-pointer"
+        file:mr-3 file:py-2 file:px-4 file:rounded-md file:border-0
+        file:text-sm file:font-semibold file:bg-orange-500 file:text-white
+        hover:file:bg-orange-600 cursor-pointer"
                 />
                 {errors.hinhAnh && <p className="text-red-400 text-xs mt-1">{errors.hinhAnh}</p>}
 
@@ -168,61 +178,62 @@ export default function FilmForm({ initial, onClose }: Props) {
                         <img
                             src={preview}
                             alt="Preview"
-                            className="w-32 h-48 object-cover rounded-md shadow-md border border-gray-600"
+                            className="w-36 h-52 object-cover rounded-md shadow-md border border-gray-700"
                         />
                     </div>
                 )}
             </div>
 
             <div>
-                <label className="block text-sm text-gray-300 mb-1">Mô tả</label>
+                <label className="block text-sm text-gray-300 font-medium mb-1">Mô tả</label>
                 <textarea
                     name="moTa"
                     value={form.moTa}
                     onChange={handleChange}
                     rows={3}
-                    className={`w-full px-3 py-2 rounded-lg bg-white/10 text-sm border ${
-                        errors.moTa ? "border-red-400" : "border-gray-500"
-                    } focus:ring-2 focus:ring-orange-400 outline-none`}
+                    placeholder="Nhập mô tả phim..."
+                    className={`w-full px-3 py-2.5 rounded-lg bg-white/10 text-sm border transition 
+        ${errors.moTa ? "border-red-400" : "border-gray-500"}
+        focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none`}
                 />
                 {errors.moTa && <p className="text-red-400 text-xs mt-1">{errors.moTa}</p>}
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid sm:grid-cols-2 gap-5">
                 <div>
-                    <label className="block text-sm text-gray-300 mb-1">Ngày khởi chiếu</label>
+                    <label className="block text-sm text-gray-300 font-medium mb-1">Ngày khởi chiếu</label>
                     <input
                         type="date"
                         name="ngayKhoiChieu"
                         value={form.ngayKhoiChieu}
                         onChange={handleChange}
-                        className={`w-full px-3 py-2 rounded-lg bg-white/10 text-sm border ${
-                            errors.ngayKhoiChieu ? "border-red-400" : "border-gray-500"
-                        } focus:ring-2 focus:ring-orange-400 outline-none`}
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white/10 text-sm border transition 
+          ${errors.ngayKhoiChieu ? "border-red-400" : "border-gray-500"}
+          focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none`}
                     />
                 </div>
 
                 <div>
-                    <label className="block text-sm text-gray-300 mb-1">Đánh giá (0-10)</label>
+                    <label className="block text-sm text-gray-300 font-medium mb-1">Đánh giá (0 - 10)</label>
                     <input
                         type="number"
                         name="danhGia"
                         value={form.danhGia}
-                        onChange={handleChange}
                         min={0}
                         max={10}
-                        className={`w-full px-3 py-2 rounded-lg bg-white/10 text-sm border ${
-                            errors.danhGia ? "border-red-400" : "border-gray-500"
-                        } focus:ring-2 focus:ring-orange-400 outline-none`}
+                        onChange={handleChange}
+                        className={`w-full px-3 py-2.5 rounded-lg bg-white/10 text-sm border transition 
+          ${errors.danhGia ? "border-red-400" : "border-gray-500"}
+          focus:ring-2 focus:ring-orange-400 focus:border-orange-400 outline-none`}
                     />
                 </div>
             </div>
 
-            <div className="flex gap-3 mt-3 flex-wrap">
+            <div className="flex flex-wrap gap-3 mt-3">
                 {[
-                    { key: "hot", label: "Phim Hot" },
-                    { key: "dangChieu", label: "Đang Chiếu" },
-                    { key: "sapChieu", label: "Sắp Chiếu" },
+                    { key: "hot", label: "🔥 Phim Hot" },
+                    { key: "dangChieu", label: "🎬 Đang Chiếu" },
+                    { key: "sapChieu", label: "⏳ Sắp Chiếu" },
                 ].map(({ key, label }) => (
                     <button
                         key={key}
@@ -230,11 +241,11 @@ export default function FilmForm({ initial, onClose }: Props) {
                         onClick={() =>
                             setForm((prev) => ({ ...prev, [key]: !(prev as any)[key] }))
                         }
-                        className={`px-4 py-2 rounded-lg text-sm font-medium transition 
-                border ${
+                        className={`px-4 py-2 rounded-lg text-sm font-medium border transition-all duration-200
+          ${
                             (form as any)[key]
-                                ? "bg-orange-500 border-orange-500 text-white"
-                                : "bg-transparent border-gray-500 text-gray-300 hover:bg-gray-700"
+                                ? "bg-orange-500 border-orange-500 text-white shadow-md"
+                                : "bg-transparent border-gray-500 text-gray-300 hover:bg-gray-700 hover:border-gray-400"
                         }`}
                     >
                         {label}
@@ -242,21 +253,21 @@ export default function FilmForm({ initial, onClose }: Props) {
                 ))}
             </div>
 
-
-            <div className="flex justify-end gap-3 pt-4 border-t border-gray-700 mt-4">
+            <div className="flex justify-end gap-3 pt-5 border-t border-gray-700 mt-5">
                 <button
                     onClick={onClose}
-                    className="px-4 py-2 rounded-lg border border-gray-500 text-gray-300 hover:bg-gray-700 transition"
+                    className="px-4 py-2.5 rounded-lg border border-gray-500 text-gray-300 hover:bg-gray-700 transition"
                 >
                     Hủy
                 </button>
                 <button
                     onClick={handleSubmit}
-                    className="px-4 py-2 rounded-lg bg-orange-500 text-white hover:bg-orange-600 transition"
+                    className="px-5 py-2.5 rounded-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold shadow-sm transition"
                 >
                     {isEdit ? "Cập nhật" : "Thêm mới"}
                 </button>
             </div>
         </div>
+
     );
 }
