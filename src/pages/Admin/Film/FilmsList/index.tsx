@@ -67,30 +67,33 @@ export default function FilmsList({data, loading, keyword, setKeyword, page, set
                     Quản lý phim
                 </h1>
 
-                <div className="relative w-full sm:w-80">
-                    <FontAwesomeIcon
-                        icon={faSearch}
-                        className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                    />
-                    <input
-                        type="text"
-                        value={keyword}
-                        onChange={setKeyword}
-                        placeholder="Tìm kiếm phim theo tên..."
-                        className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 text-sm text-gray-700
-             focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
-                    />
-                </div>
+                <div className="flex gap-3 items-center w-full sm:w-auto">
+                    <div className="relative w-full sm:w-80">
+                        <FontAwesomeIcon
+                            icon={faSearch}
+                            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+                        />
+                        <input
+                            type="text"
+                            value={keyword}
+                            onChange={setKeyword}
+                            placeholder="Tìm kiếm phim theo tên..."
+                            className="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-300 text-sm text-gray-700
+                 focus:ring-2 focus:ring-orange-400 focus:border-orange-400 transition-all"
+                        />
+                    </div>
 
-                <button
-                    onClick={() => {
-                        setSelected(null);
-                        setShowForm(true);
-                    }}
-                    className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition"
-                >
-                    <FontAwesomeIcon icon={faPlus}/> Thêm phim
-                </button>
+
+                    <button
+                        onClick={() => {
+                            setSelected(null);
+                            setShowForm(true);
+                        }}
+                        className="flex items-center gap-2 px-4 py-2 bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold rounded-lg transition"
+                    >
+                        <FontAwesomeIcon icon={faPlus}/> Thêm phim
+                    </button>
+                </div>
             </div>
 
             {loading ? (
