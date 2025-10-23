@@ -1,9 +1,8 @@
-import type {IUser} from "@/types/IUser.ts";
 import api from "@api/api.ts";
 import type {IRegister} from "@/types/IRegister.ts";
 
 export const authService = {
-    login: (user : IUser) =>
+    login: (user : {taiKhoan : string; matKhau: string}) =>
         api.post("/QuanLyNguoiDung/DangNhap",user),
 
     register: (register: IRegister) =>

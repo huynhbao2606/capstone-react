@@ -27,7 +27,7 @@ const initialState: State = {
 
 export const userLogin = createAsyncThunk(
     "user/login",
-    async (user : IUser,  { rejectWithValue }) => {
+    async (user : {taiKhoan: string; matKhau: string},  { rejectWithValue }) => {
         try{
             const res = await authService.login(user);
             const info = res.data.content;
