@@ -43,7 +43,6 @@ export default function UserList({ data, loading, keyword, setKeyword, page, set
 
     return (
         <div className="p-6 bg-white border border-gray-200 rounded-2xl shadow-lg">
-            {/* Header */}
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
                 <h1 className="text-2xl font-semibold text-gray-800 flex items-center gap-2">
                     <FontAwesomeIcon icon={faUsers} className="text-orange-500" />

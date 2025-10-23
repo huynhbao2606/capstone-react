@@ -25,10 +25,25 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
     }
 
     config.headers["TokenCybersoft"] = import.meta.env.VITE_TOKEN_CYBERSOFT;
-    config.headers["Content-Type"] = "application/json";
+
+    if (!(config.data instanceof FormData)) {
+        config.headers["Content-Type"] = "application/json";
+    }
+
     return config;
 });
 
-
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        const message =
+            error?.response?.data?.content ||
+            error?.response?.data?.message ||
+            error.message ||
+            "Lỗi không xác định từ server";
+        console.error("API Error:", message);
+        return Promise.reject({ message });
+    }
+);
 
 export default api;

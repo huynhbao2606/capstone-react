@@ -28,7 +28,6 @@ export default function UserForm({ initial, onClose }: Props) {
         }
     );
 
-    console.log(form)
 
 
     const [errors, setErrors] = useState<Record<string, string>>({});

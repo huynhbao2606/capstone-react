@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 const menu = [
     { name: "Users", path: "/admin/user" },
     { name: "Films", path: "/admin/film" },
-    { name: "Showtime", path: "/admin/showtime" },
 ];
 
 export default function Sidebar() {

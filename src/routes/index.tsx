@@ -14,7 +14,7 @@ import TicketBook from "@pages/Home/TicketBook";
 import Showtimes from "@pages/Home/Showtimes";
 import AdminLayout from "@pages/Admin/_components/AdminLayout";
 import Admin from "@pages/Admin";
-import Showtime from "@pages/Admin/Showtime";
+import Showtime from "@pages/Admin/Film/Showtime";
 import Film from "@pages/Admin/Film";
 import User from "@pages/Admin/User";
 
@@ -52,10 +52,9 @@ const routes: AppRoute[] = [
             { path: "user", element: User as RouteElement },
             { path: "film", element: Film as RouteElement,
                 children: [
-                    { path: "showtime", element: Showtime as RouteElement },
+                    { path: "showtime/:id", element: Showtime as RouteElement },
                 ]
             },
-            { path: "showtime", element: Showtime as RouteElement },
         ],
     },
     { path: "auth", element: Auth as RouteElement },
