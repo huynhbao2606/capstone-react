@@ -4,6 +4,7 @@ import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 import {useAppDispatch, useAppSelector} from "@redux/hooks";
 import {userLogout} from "@redux/slices/auth/userAuthSlice.ts";
 import type {RootState} from "@redux/store.ts";
+import type {IUser} from "@/types/IUser.ts";
 
 
 function getInitials(name?: string, fallback = "U") {
@@ -24,6 +25,7 @@ export default function Navbar() {
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+
 
     useMotionValueEvent(scrollY, "change", (y) => {
         const curr = y ?? 0;
@@ -121,13 +123,6 @@ export default function Navbar() {
 
                         <div className="flex items-center gap-3">
 
-                            <button className="p-2 text-white/90 hover:text-white" aria-label="Tìm kiếm">
-                                <svg width="22" height="22" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <circle cx="11" cy="11" r="7" strokeWidth="2" />
-                                    <path d="M21 21l-3.5-3.5" strokeWidth="2" />
-                                </svg>
-                            </button>
-
                             {!isAuthed ? (
                                 <div className="flex items-center gap-2">
                                     <Link
@@ -145,6 +140,7 @@ export default function Navbar() {
                                 </div>
                             ) : (
                                 <UserMenu
+                                    user={user}
                                     name={(user?.hoTen || user?.taiKhoan) as string}
                                     initials={getInitials(user?.hoTen || user?.taiKhoan, "U")}
                                     onLogout={() => {
@@ -182,17 +178,12 @@ function useClickOutside<T extends HTMLElement>(open: boolean, onClose: () => vo
     return ref;
 }
 
-function UserMenu({
-                      name,
-                      initials,
-                      onLogout,
-                  }: { name: string; initials: string; onLogout: () => void }) {
+function UserMenu({user, name, initials, onLogout,}: { user?: IUser | null;name: string; initials: string; onLogout: () => void }) {
     const [open, setOpen] = useState(false);
     const ref = useClickOutside<HTMLDivElement>(open, () => setOpen(false));
 
     return (
         <div className="relative" ref={ref}>
-            {/* Nút toggle: mobile dùng click, desktop vẫn có hover nhờ wrapper group */}
             <button
                 onClick={() => setOpen((s) => !s)}
                 className="flex items-center gap-2 group"
@@ -217,7 +208,6 @@ function UserMenu({
                 </svg>
             </button>
 
-            {/* Dropdown */}
             <div
                 id="user-menu"
                 role="menu"
@@ -245,6 +235,13 @@ function UserMenu({
                             Vé đã đặt
                         </Link>
                     </li>
+                    {user?.maLoaiNguoiDung === "QuanTri" ? (
+                        <li role="none">
+                            <Link role="menuitem" to="/admin" className="block px-4 py-2 hover:bg-white/10 focus:bg-white/10 focus:outline-none" onClick={() => setOpen(false)}>
+                                Admin
+                            </Link>
+                        </li>
+                    ): null}
                 </ul>
 
                 <button

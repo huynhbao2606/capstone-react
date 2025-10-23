@@ -1,13 +1,11 @@
-import axios, {type InternalAxiosRequestConfig} from "axios";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 
 const api = axios.create({
-    baseURL: import.meta.env.VITE_BASE_URL,
+    baseURL: "/api",
 });
 
 api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    let authorization: string | null = null;
     try {
-
         const isAdminRoute =
             typeof window !== "undefined" && location.pathname.startsWith("/admin");
 
@@ -19,17 +17,18 @@ api.interceptors.request.use((config: InternalAxiosRequestConfig) => {
         if (rawInfo) {
             const { accessToken } = JSON.parse(rawInfo);
             if (accessToken) {
-                authorization = `Bearer ${accessToken}`;
+                config.headers["Authorization"] = `Bearer ${accessToken}`;
             }
         }
     } catch (error) {
-        console.error("Parse token failed:", error);
+        console.error("⚠️ Parse token failed:", error);
     }
 
-    config.headers["Authorization"] = authorization;
     config.headers["TokenCybersoft"] = import.meta.env.VITE_TOKEN_CYBERSOFT;
-
+    config.headers["Content-Type"] = "application/json";
     return config;
 });
+
+
 
 export default api;

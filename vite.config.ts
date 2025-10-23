@@ -20,5 +20,15 @@ export default defineConfig({
           "@redux": path.resolve(__dirname, './src/redux'),
           "@styles": path.resolve(__dirname, './src/styles'),
       }
-  }
+  },
+    server: {
+        proxy: {
+            "/api": {
+                target: "https://movienew.cybersoft.edu.vn",
+                changeOrigin: true,
+                secure: false,
+            },
+        },
+    },
+
 })

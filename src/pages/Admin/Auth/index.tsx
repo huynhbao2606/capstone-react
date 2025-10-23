@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import type { AppDispatch, RootState } from "@/redux/store.ts";
 import { useState } from "react";
-import type { IUser } from "@/types/IUser.ts";
 import { Navigate } from "react-router-dom";
 import { authLogin } from "@redux/slices/auth/adminAuthSlice.ts";
 import * as React from "react";
@@ -9,7 +8,7 @@ import * as React from "react";
 export default function Auth() {
     const { error, data, loading } = useSelector((state: RootState) => state.adminAuth);
     const dispatch = useDispatch<AppDispatch>();
-    const [user, setUser] = useState<IUser>({ taiKhoan: "", matKhau: "" });
+    const [user, setUser] = useState<{taiKhoan : string,matKhau : string }>({ taiKhoan: "", matKhau: "" });
 
     if (data) {
         return <Navigate to="/admin" replace />;
