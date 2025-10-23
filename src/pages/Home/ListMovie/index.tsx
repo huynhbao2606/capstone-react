@@ -14,6 +14,11 @@ export default function ListMovie() {
     const [page, setPage] = useState(1);
     const [search, setSearch] = useState("");
 
+    const handleSearch = () => {
+        if (search.trim()) search.trim();
+    };
+
+
     useEffect(() => {
         dispatch(fetchMovies({ tenPhim: search, soTrang: page, soPhanTuTrenTrang: 10 }));
     }, [dispatch, page, search]);
@@ -25,21 +30,29 @@ export default function ListMovie() {
 
     return (
         <div className="container mx-auto px-4 py-10">
-            <div className="relative w-full sm:w-80">
-                <FontAwesomeIcon
-                    icon={faSearch}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                />
+            <div
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                className="relative flex items-center w-full sm:w-80"
+            >
                 <input
                     type="text"
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     placeholder="Tìm kiếm phim..."
-                    className="w-full pl-10 pr-4 py-2 rounded-xl border border-gray-300 bg-white/10
-                       text-sm text-white placeholder-gray-400
-                       focus:ring-2 focus:ring-gray-500 focus:border-gray-500 outline-none transition-all"
+                    className="w-full pl-4 pr-12 py-2 rounded-xl border border-gray-600 bg-gray-800/40
+               text-sm text-white placeholder-gray-400
+               focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-all"
                 />
+                <button
+                    onClick={handleSearch}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-lg
+               text-gray-300 hover:text-white hover:bg-indigo-500/30
+               focus:ring-2 focus:ring-indigo-400 transition-all"
+                >
+                    <FontAwesomeIcon icon={faSearch} />
+                </button>
             </div>
+
 
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">

@@ -13,10 +13,10 @@ export default function Carousel() {
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-3">
-                    <Link to="/book-ticket" className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-sm font-semibold">
+                    <Link to="/showtimes" className="px-5 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-sm font-semibold">
                         Đặt vé ngay
                     </Link>
-                    <Link to="/lich-chieu" className="px-5 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-sm">
+                    <Link to="/showtimes" className="px-5 py-2.5 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-sm">
                         Xem lịch chiếu
                     </Link>
                 </div>
